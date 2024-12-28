@@ -1,3 +1,4 @@
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.RoomManagment.RoomTypes;
@@ -20,6 +21,14 @@ namespace HotelSystem.Controllers
         public async Task<ResponseViewModel<bool>> Add(CreateRoomTypeViewModel viewModel)
         {
             var response = await _mediator.Send(new AddRoomTypeCommand(viewModel.Name, viewModel.Price));
+
+            return response;
+        }
+
+        [HttpPut]
+        public async Task<ResponseViewModel<bool>> Update(UpdateRoomTypeCommand viewModel)
+        {
+            var response = await _mediator.Send(new UpdateRoomTypeCommand(viewModel.id, viewModel.name, viewModel.price));
 
             return response;
         }
