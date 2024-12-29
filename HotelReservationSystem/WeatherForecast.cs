@@ -1,4 +1,4 @@
-namespace HotelSystem
+namespace HotelReservationSystem
 {
     public class WeatherForecast
     {

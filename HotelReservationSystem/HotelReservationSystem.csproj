@@ -15,8 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\RoomManagement\Facilities\Commands\" />
-    <Folder Include="Features\RoomManagement\Facilities\Queries\" />
     <Folder Include="Features\RoomManagement\Rooms\Commands\" />
     <Folder Include="Features\RoomManagement\Rooms\Queries\" />
     <Folder Include="Models\UserManagement\" />

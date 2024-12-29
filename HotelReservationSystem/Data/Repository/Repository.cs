@@ -1,10 +1,10 @@
-﻿using HotelSystem.Models;
+﻿using HotelReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq.Expressions;
 
-namespace HotelSystem.Data.Repository
+namespace HotelReservationSystem.Data.Repository
 {
     public class Repository<Entity> : IRepository<Entity> where Entity : BaseModel
     {

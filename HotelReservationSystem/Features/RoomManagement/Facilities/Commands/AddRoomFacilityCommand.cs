@@ -1,34 +1,34 @@
-﻿using HotelReservationSystem.Data.Repository;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+﻿using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
+using HotelReservationSystem.Data.Repository;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels;
 using MediatR;
 
-namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
+namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
 {
-    public record AddRoomTypeCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomFacilityCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
 
-    public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
+    public class AddRoomFacilityCommandHandler : IRequestHandler<AddRoomFacilityCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<RoomType> _repository;
+        readonly IRepository<Facility> _repository;
         readonly IMediator _mediator;
 
-        public AddRoomTypeCommandHandler(IRepository<RoomType> repository,
+        public AddRoomFacilityCommandHandler(IRepository<Facility> repository,
             IMediator mediator)
         {
             _repository = repository;
             _mediator = mediator;
         }
 
-        public async Task<ResponseViewModel<bool>> Handle(AddRoomTypeCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseViewModel<bool>> Handle(AddRoomFacilityCommand request, CancellationToken cancellationToken)
         {
             var response = await ValidateRequest(request);
 
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new RoomType
+            _repository.Add(new Facility
             {
                 Name = request.name,
                 Price = request.price,
@@ -37,9 +37,9 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             return response;
         }
 
-        private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
+        private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomFacilityCommand request)
         {
-            if(string.IsNullOrEmpty(request.name))
+            if (string.IsNullOrEmpty(request.name))
             {
                 return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
@@ -49,9 +49,9 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
                 return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
             }
 
-            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.name));
+            var roomtypeExists = await _mediator.Send(new IsRoomFacilityExistsQuery(request.name));
 
-            if(roomtypeExists)
+            if (roomtypeExists)
             {
                 return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
             }

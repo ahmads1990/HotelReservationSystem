@@ -1,6 +1,6 @@
-﻿using HotelSystem.Models.Enums;
+﻿using HotelReservationSystem.Models.Enums;
 
-namespace HotelSystem.ViewModels;
+namespace HotelReservationSystem.ViewModels;
 
 public class ResponseViewModel<T>
 {

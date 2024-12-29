@@ -1,10 +1,10 @@
-using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
-using HotelSystem.ViewModels;
-using HotelSystem.ViewModels.RoomManagment.RoomTypes;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
+using HotelReservationSystem.ViewModels;
+using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelSystem.Controllers
+namespace HotelReservationSystem.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

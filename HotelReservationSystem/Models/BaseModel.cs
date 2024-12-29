@@ -1,4 +1,4 @@
-﻿namespace HotelSystem.Models;
+﻿namespace HotelReservationSystem.Models;
 
 public class BaseModel
 {

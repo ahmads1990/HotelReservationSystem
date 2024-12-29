@@ -1,5 +1,5 @@
 ﻿
-namespace HotelSystem.Models.Enums;
+namespace HotelReservationSystem.Models.Enums;
 
 public enum ErrorCode
 {

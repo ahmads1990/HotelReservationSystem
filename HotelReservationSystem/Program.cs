@@ -1,7 +1,7 @@
 
 using MediatR;
 
-namespace HotelSystem
+namespace HotelReservationSystem
 {
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace HotelSystem.ViewModels.RoomManagment.RoomTypes
+﻿namespace HotelReservationSystem.ViewModels.RoomManagment.RoomTypes
 {
     public class CreateRoomTypeViewModel
     {
