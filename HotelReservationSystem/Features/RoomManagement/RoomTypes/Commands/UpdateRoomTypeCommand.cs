@@ -35,7 +35,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
             Price = request.price,
         };
 
-        _repository.SaveInclude(updatedRoom, nameof(Type.Name), nameof(Type.Price));
+        _repository.SaveInclude(updatedRoom, nameof(RType.Name), nameof(RType.Price));
         _repository.SaveChanges();
 
         return response;

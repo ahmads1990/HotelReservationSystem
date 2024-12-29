@@ -1,4 +1,5 @@
-﻿using HotelReservationSystem.Models.OfferManagement;
+﻿using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Models.OfferManagement;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +9,22 @@ namespace HotelReservationSystem.Data;
 
 public class Context : DbContext
 {
+    // Users Management
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
     public DbSet<UserFeatures> UserFeatures { get; set; }
-    public DbSet<Models.RoomManagement.RType> RoomTypes { get; set; }
+    public DbSet<RoleFeatures> RoleFeatures { get; set; }
+
+    // Rooms Management
     public DbSet<Room> rooms { get; set; }
     public DbSet<Facility> roomFacilities { get; set; }
+    public DbSet<RType> RTypes { get; set; }
+    public DbSet<RoomFacilities> RoomFacilities { get; set; }
+    public DbSet<RTypeFacilities> RTypeFacilities { get; set; }
+
+    // Offers Management
+
     public DbSet<Offer> Offers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

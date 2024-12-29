@@ -13,9 +13,8 @@ public class User : BaseModel
     public bool TwoFactorAuthEnabled { get; set; }
     public string TwoFactorAuthsecretKey { get; set; }
 
-
+    public int RoleID { get; set; }
     public Role Role { get; set; }
-    public string RoleID { get; set; }
 
     public ICollection<UserFeatures> UserFeatures { get; set; }
 }

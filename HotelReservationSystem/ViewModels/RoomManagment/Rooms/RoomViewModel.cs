@@ -1,5 +1,5 @@
 ﻿using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels.RoomManagment.RoomFacilities;
+using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {
@@ -7,6 +7,6 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
     {
         public int ID { get; set; }
         public string RoomTypeName { get; set; }
-        public List<RoomFacilityViewModel> Facilities { get; set; }
+        public List<FacilityViewModel> Facilities { get; set; }
     }
 }
