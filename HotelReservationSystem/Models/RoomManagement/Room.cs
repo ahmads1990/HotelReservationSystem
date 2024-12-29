@@ -6,7 +6,6 @@
         public int RoomTypeID { get; set; }
         public RoomType RoomType { get; set; }
 
-        // Facilities specific to this room
         public ICollection<RoomFacility> CustomFacilities { get; set; } = new List<RoomFacility>();
     }
 }
