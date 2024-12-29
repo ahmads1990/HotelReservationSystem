@@ -1,11 +1,10 @@
-using FOOD_APP_JSB_2.AutoMapper;
-using FOOD_APP_JSB_2.Data.Repositories;
-using FOOD_APP_JSB_2.Models;
-using FOOD_APP_JSB_2.ViewModels.Recipes;
+using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
 using MediatR;
+using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Models.UserManagement;
 
-namespace FOOD_APP_JSB_2.CQRS.UserFeatures.Queries;
+namespace HotelReservationSystem.CQRS.UserFeatures.Queries;
 
 public record HasAccessQuery(int ID, Feature Featuer) : IRequest<bool>;
 

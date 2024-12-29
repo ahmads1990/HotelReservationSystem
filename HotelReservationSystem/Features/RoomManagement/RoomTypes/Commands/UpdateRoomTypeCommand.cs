@@ -1,9 +1,9 @@
-﻿using HotelReservationSystem.Data.Repository;
+﻿using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels;
+using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;

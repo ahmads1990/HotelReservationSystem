@@ -1,9 +1,10 @@
 using AutoMapper;
-using FOOD_APP_JSB_2.CQRS.Users.Commands;
-using FOOD_APP_JSB_2.CQRS.Users.Queries;
-using FOOD_APP_JSB_2.Models;
+using HotelReservationSystem.CQRS.Users.Commands;
+using HotelReservationSystem.CQRS.Users.Queries;
+using HotelReservationSystem.Models;
+using HotelReservationSystem.Models.UserManagement;
 
-namespace FOOD_APP_JSB_2.ViewModels.Users;
+namespace HotelReservationSystem.ViewModels.Users;
 
 public class UserProfile: Profile
 {

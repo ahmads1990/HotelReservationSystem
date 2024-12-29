@@ -1,4 +1,4 @@
-﻿using HotelReservationSystem.Data.Repository;
+﻿using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.RoomManagement;
 using MediatR;
 
@@ -8,8 +8,8 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Queries
 
     public class IsRoomFacilityExistsQueryHandler : IRequestHandler<IsRoomFacilityExistsQuery, bool>
     {
-        readonly IRepository<Facility> _repository;
-        public IsRoomFacilityExistsQueryHandler(IRepository<Facility> repository)
+        readonly IRepository<RoomFacility> _repository;
+        public IsRoomFacilityExistsQueryHandler(IRepository<RoomFacility> repository)
         {
             _repository = repository;
         }

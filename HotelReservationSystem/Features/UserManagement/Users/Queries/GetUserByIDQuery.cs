@@ -1,10 +1,10 @@
-using FOOD_APP_JSB_2.AutoMapper;
-using FOOD_APP_JSB_2.Data.Repositories;
-using FOOD_APP_JSB_2.ViewModels.Users;
-using HotelReservationSystem.Models.UserManagement.Users;
+using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.ViewModels.Users;
 using MediatR;
+using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Models.UserManagement;
 
-namespace FOOD_APP_JSB_2.CQRS.Users.Queries;
+namespace HotelReservationSystem.CQRS.Users.Queries;
 
 public record GetUserByIDQuery (int ID) : IRequest<UserViewModel>;
 

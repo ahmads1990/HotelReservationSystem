@@ -1,9 +1,9 @@
 using System.Windows.Input;
-using FOOD_APP_JSB_2.Data.Repositories;
-using HotelReservationSystem.Models.UserManagement.Users;
+using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Models.UserManagement;
 using MediatR;
 
-namespace FOOD_APP_JSB_2.CQRS.Users.Commands;
+namespace HotelReservationSystem.CQRS.Users.Commands;
 
 public record RegisterUserCommand(string phoneNo, string name, string userName, string email, string password) : IRequest<bool>;
 

@@ -1,10 +1,10 @@
-using FOOD_APP_JSB_2.AutoMapper;
-using FOOD_APP_JSB_2.Data.Repositories;
-using FOOD_APP_JSB_2.Models;
-using FOOD_APP_JSB_2.ViewModels.Users;
+using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Models;
+using HotelReservationSystem.ViewModels.Users;
 using MediatR;
 
-namespace FOOD_APP_JSB_2.CQRS.Users.Queries;
+namespace HotelReservationSystem.CQRS.Users.Queries;
 
 public record UserLogInQuery(string email, string password) : IRequest<(int, bool)>;
 

@@ -1,7 +1,7 @@
-using FOOD_APP_JSB_2.Data.Enums;
+using HotelReservationSystem.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelReservationSystem.Models.UserManagement.Users;
+namespace HotelReservationSystem.Models.UserManagement;
 
 public class User : BaseModel
 {

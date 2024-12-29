@@ -1,11 +1,12 @@
-using FOOD_APP_JSB_2.AutoMapper;
-using FOOD_APP_JSB_2.CQRS.Users.Commands;
-using FOOD_APP_JSB_2.CQRS.Users.Queries;
-using FOOD_APP_JSB_2.Data.Enums;
-using FOOD_APP_JSB_2.Filters;
-using FOOD_APP_JSB_2.Helpers;
-using FOOD_APP_JSB_2.ViewModels.Responses;
-using FOOD_APP_JSB_2.ViewModels.Users;
+using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.CQRS.Users.Commands;
+using HotelReservationSystem.CQRS.Users.Queries;
+using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Filters;
+using HotelReservationSystem.Helpers;
+using HotelReservationSystem.Models.Enums;
+using HotelReservationSystem.ViewModels.Responses;
+using HotelReservationSystem.ViewModels.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using OtpNet;
 
 
-namespace FOOD_APP_JSB_2.Controllers;
+namespace HotelReservationSystem.Controllers;
 
 
 [ApiController]

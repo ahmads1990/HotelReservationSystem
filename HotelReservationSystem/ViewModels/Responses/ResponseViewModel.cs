@@ -1,6 +1,6 @@
 ﻿using HotelReservationSystem.Models.Enums;
 
-namespace HotelReservationSystem.ViewModels;
+namespace HotelReservationSystem.ViewModels.Responses;
 
 public class ResponseViewModel<T>
 {
@@ -12,7 +12,7 @@ public class ResponseViewModel<T>
 
 public class SuccessResponseViewModel<T> : ResponseViewModel<T>
 {
-    public SuccessResponseViewModel(T data, string message = "") 
+    public SuccessResponseViewModel(T data, string message = "")
     {
         Data = data;
         IsSuccess = true;

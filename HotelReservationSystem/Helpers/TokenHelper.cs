@@ -5,9 +5,9 @@ using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using FOOD_APP_JSB_2.Data.Enums;
+using HotelReservationSystem.Data.Enums;
 
-namespace FOOD_APP_JSB_2.Helpers
+namespace HotelReservationSystem.Helpers
 {
     public class TokenHelper
     {

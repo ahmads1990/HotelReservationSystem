@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace HotelReservationSystem.Data.Repository
+namespace HotelReservationSystem.Data.Repositories
 {
     public interface IRepository<Entity>
     {

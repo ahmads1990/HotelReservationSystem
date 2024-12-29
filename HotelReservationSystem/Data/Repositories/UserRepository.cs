@@ -1,7 +1,7 @@
-﻿using HotelReservationSystem.Models.UserManagement.Users;
+﻿using HotelReservationSystem.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
 
-namespace FOOD_APP_JSB_2.Data.Repositories
+namespace HotelReservationSystem.Data.Repositories
 {
     public class UserRepository : Repository<User> , IUserRepository
     {

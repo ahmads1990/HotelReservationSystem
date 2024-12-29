@@ -1,10 +1,10 @@
 
 
 using Autofac;
-using FOOD_APP_JSB_2.Data;
-using FOOD_APP_JSB_2.Data.Repositories;
+using HotelReservationSystem.Data;
+using HotelReservationSystem.Data.Repositories;
 
-namespace FOOD_APP_JSB_2.Configrations;
+namespace HotelReservationSystem.Configrations;
 
 public class AutoFacModule: Module
 {

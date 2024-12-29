@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace FOOD_APP_JSB_2.AutoMapper;
+namespace HotelReservationSystem.AutoMapper;
 
 public static class AutoMapperService
 {

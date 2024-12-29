@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq.Expressions;
 
-namespace HotelReservationSystem.Data.Repository
-{
+namespace HotelReservationSystem.Data.Repositories{
     public class Repository<Entity> : IRepository<Entity> where Entity : BaseModel
     {
         Context _context;
         DbSet<Entity> _dbSet;
 
-        public Repository()
+        public Repository(Context context)
         {
             _context = new Context();
             _dbSet = _context.Set<Entity>();

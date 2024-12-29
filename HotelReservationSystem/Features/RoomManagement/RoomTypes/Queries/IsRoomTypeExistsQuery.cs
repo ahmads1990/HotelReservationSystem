@@ -1,4 +1,4 @@
-﻿using HotelReservationSystem.Data.Repository;
+﻿using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.RoomManagement;
 using MediatR;
 

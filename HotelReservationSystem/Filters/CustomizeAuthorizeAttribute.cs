@@ -1,12 +1,12 @@
 ﻿using Azure.Core;
-using FOOD_APP_JSB_2.CQRS.UserFeatures.Queries;
-using FOOD_APP_JSB_2.Data.Enums;
+using HotelReservationSystem.CQRS.UserFeatures.Queries;
+using HotelReservationSystem.Data.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 
-namespace FOOD_APP_JSB_2.Filters
+namespace HotelReservationSystem.Filters
 {
     public class CustomizeAuthorizeAttribute : ActionFilterAttribute
     {

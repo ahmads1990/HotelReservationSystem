@@ -1,9 +1,9 @@
 ﻿using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
-using HotelReservationSystem.Data.Repository;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels;
 using MediatR;
+using HotelReservationSystem.ViewModels.Responses;
 
 namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
 {
@@ -11,10 +11,10 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
 
     public class AddRoomFacilityCommandHandler : IRequestHandler<AddRoomFacilityCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<Facility> _repository;
+        readonly IRepository<RoomFacility> _repository;
         readonly IMediator _mediator;
 
-        public AddRoomFacilityCommandHandler(IRepository<Facility> repository,
+        public AddRoomFacilityCommandHandler(IRepository<RoomFacility> repository,
             IMediator mediator)
         {
             _repository = repository;
@@ -28,7 +28,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new Facility
+            _repository.Add(new RoomFacility
             {
                 Name = request.name,
                 Price = request.price,

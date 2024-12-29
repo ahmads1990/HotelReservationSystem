@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FOOD_APP_JSB_2.ViewModels.Users
+namespace HotelReservationSystem.ViewModels.Users
 {
     public class RegisterViewModel
     {

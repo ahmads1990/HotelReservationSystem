@@ -1,10 +1,15 @@
 
-using FOOD_APP_JSB_2.AutoMapper;
-using FOOD_APP_JSB_2.Configrations;
-using FOOD_APP_JSB_2.Helpers;
-using HotelReservationSystem.Data.Repository;
+using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Configrations;
+using HotelReservationSystem.Helpers;
+using HotelReservationSystem.Data.Repositories;
 using MediatR;
 using System.Text;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HotelReservationSystem
 {

@@ -8,4 +8,7 @@ public enum ErrorCode
     FieldIsEmpty,
     InvalidInput,
     ItemAlreadyExists,
+
+
+    UserNotFound,
 }
