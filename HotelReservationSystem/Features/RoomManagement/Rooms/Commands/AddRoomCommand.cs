@@ -5,23 +5,23 @@ using HotelReservationSystem.Models.RoomManagement;
 using MediatR;
 using HotelReservationSystem.ViewModels.Responses;
 
-namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
+namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomFacilityCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
 
-    public class AddRoomFacilityCommandHandler : IRequestHandler<AddRoomFacilityCommand, ResponseViewModel<bool>>
+    public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
     {
         readonly IRepository<RoomFacility> _repository;
         readonly IMediator _mediator;
 
-        public AddRoomFacilityCommandHandler(IRepository<RoomFacility> repository,
+        public AddRoomCommandHandler(IRepository<RoomFacility> repository,
             IMediator mediator)
         {
             _repository = repository;
             _mediator = mediator;
         }
 
-        public async Task<ResponseViewModel<bool>> Handle(AddRoomFacilityCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseViewModel<bool>> Handle(AddRoomCommand request, CancellationToken cancellationToken)
         {
             var response = await ValidateRequest(request);
 
@@ -37,7 +37,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
             return response;
         }
 
-        private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomFacilityCommand request)
+        private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomCommand request)
         {
             if (string.IsNullOrEmpty(request.name))
             {
