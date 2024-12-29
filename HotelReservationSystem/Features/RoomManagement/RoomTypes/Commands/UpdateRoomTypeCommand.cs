@@ -12,10 +12,10 @@ public record UpdateRoomTypeCommand(int id, string name, double price) : IReques
 
 public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeCommand, ResponseViewModel<bool>>
 {
-    readonly IRepository<RoomType> _repository;
+    readonly IRepository<Models.RoomManagement.RType> _repository;
     readonly IMediator _mediator;
 
-    public UpdateRoomTypeCommandHandler(IRepository<RoomType> repository,
+    public UpdateRoomTypeCommandHandler(IRepository<Models.RoomManagement.RType> repository,
         IMediator mediator)
     {
         _repository = repository;
@@ -28,14 +28,14 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
         if (!response.IsSuccess)
             return response;
 
-        var updatedRoom = new RoomType
+        var updatedRoom = new Models.RoomManagement.RType
         {
             ID = request.id,
             Name = request.name,
             Price = request.price,
         };
 
-        _repository.SaveInclude(updatedRoom, nameof(RoomType.Name), nameof(RoomType.Price));
+        _repository.SaveInclude(updatedRoom, nameof(Type.Name), nameof(Type.Price));
         _repository.SaveChanges();
 
         return response;

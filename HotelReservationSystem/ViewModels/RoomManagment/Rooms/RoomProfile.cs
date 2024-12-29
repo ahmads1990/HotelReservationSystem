@@ -21,7 +21,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
                 .Select(group => group.First())
                 .ToList()));
 
-            CreateMap<RoomFacility, FacilityDto>();
+            CreateMap<Facility, FacilityDto>();
         }
     }
 

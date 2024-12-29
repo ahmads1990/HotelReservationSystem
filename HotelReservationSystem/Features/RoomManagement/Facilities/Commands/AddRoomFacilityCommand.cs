@@ -11,10 +11,10 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
 
     public class AddRoomFacilityCommandHandler : IRequestHandler<AddRoomFacilityCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<RoomFacility> _repository;
+        readonly IRepository<Facility> _repository;
         readonly IMediator _mediator;
 
-        public AddRoomFacilityCommandHandler(IRepository<RoomFacility> repository,
+        public AddRoomFacilityCommandHandler(IRepository<Facility> repository,
             IMediator mediator)
         {
             _repository = repository;
@@ -28,7 +28,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Facilities.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new RoomFacility
+            _repository.Add(new Facility
             {
                 Name = request.name,
                 Price = request.price,

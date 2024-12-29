@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace HotelReservationSystem.Models.UserManagement
 {
-    public class UserFeature : BaseModel
+    public class RoleFeatures
     {
-        public int UserID { get; set; }
-        public User user { get; set; }
+        public int RoleID { get; set; }
+        public Role Role { get; set; }
         public Feature Feature { get; set; }
     }
 }

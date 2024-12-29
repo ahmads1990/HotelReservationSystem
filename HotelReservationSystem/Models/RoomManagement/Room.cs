@@ -4,8 +4,8 @@
     {
         public string RoomNumber { get; set; }
         public int RoomTypeID { get; set; }
-        public RoomType RoomType { get; set; }
+        public RType RoomType { get; set; }
 
-        public ICollection<RoomFacility> CustomFacilities { get; set; } = new List<RoomFacility>();
+        public ICollection<RoomFacilities> RoomFacilities { get; set; } = new List<RoomFacilities>();
     }
 }

@@ -7,7 +7,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.RoomFacilities
     {
         public RoomFacilityProfile()
         {
-            CreateMap<RoomFacility, RoomFacilityViewModel>().ReverseMap();
+            CreateMap<Facility, RoomFacilityViewModel>().ReverseMap();
                 
         }
     }

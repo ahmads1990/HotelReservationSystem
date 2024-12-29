@@ -10,10 +10,10 @@ public class Context : DbContext
 {
 
     public DbSet<User> Users { get; set; }
-    public DbSet<UserFeature> UserFeatures { get; set; }
-    public DbSet<RoomType> RoomTypes { get; set; }
+    public DbSet<UserFeatures> UserFeatures { get; set; }
+    public DbSet<Models.RoomManagement.RType> RoomTypes { get; set; }
     public DbSet<Room> rooms { get; set; }
-    public DbSet<RoomFacility> roomFacilities { get; set; }
+    public DbSet<Facility> roomFacilities { get; set; }
     public DbSet<Offer> Offers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -10,9 +10,9 @@ public record HasAccessQuery(int ID, Feature Featuer) : IRequest<bool>;
 
 public class HasAccessQueryHandler : IRequestHandler<HasAccessQuery, bool>
 {
-    IRepository<UserFeature> _repository;
+    IRepository<Models.UserManagement.UserFeatures> _repository;
     IMediator _mediator;
-    public HasAccessQueryHandler(IMediator mediator, IRepository<UserFeature> repository)
+    public HasAccessQueryHandler(IMediator mediator, IRepository<Models.UserManagement.UserFeatures> repository)
     {
         _repository = repository;
         _mediator = mediator;

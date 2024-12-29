@@ -1,8 +1,10 @@
-﻿namespace HotelReservationSystem.Data.Enums
+﻿using HotelReservationSystem.Models.UserManagement;
+
+namespace HotelReservationSystem.Data.Enums
 {
     public enum Feature
     {
         Register = 0,
-        GetByID = 1
+        GetByID = 1,
     }
 }

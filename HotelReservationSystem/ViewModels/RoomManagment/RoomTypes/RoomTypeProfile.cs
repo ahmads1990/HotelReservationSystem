@@ -7,13 +7,13 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.RoomTypes
     {
         public RoomProfile()
         {
-            CreateMap<RoomType, RoomTypeViewModel>().ReverseMap();
+            CreateMap<Models.RoomManagement.RType, RoomTypeViewModel>().ReverseMap();
 
-            CreateMap<RoomType, RoomTypeViewModel>()
+            CreateMap<Models.RoomManagement.RType, RoomTypeViewModel>()
            .ForMember(dest => dest.Facilities, opt => opt.MapFrom(src =>
                src.RoomFacilities.Select(rtf => rtf).ToList()));
 
-            CreateMap<RoomFacility, RoomTypeViewModel>();
+            CreateMap<Facility, RoomTypeViewModel>();
         }
     }
 
