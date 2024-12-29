@@ -1,5 +1,5 @@
 
-using HotelSystem.Data.Repository;
+using HotelReservationSystem.Data.Repository;
 using MediatR;
 
 namespace HotelReservationSystem
