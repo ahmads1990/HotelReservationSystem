@@ -3,7 +3,9 @@ using HotelReservationSystem.Models.OfferManagement;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HotelReservationSystem.Data;
 
@@ -18,7 +20,7 @@ public class Context : DbContext
 
     // Rooms Management
     public DbSet<Room> rooms { get; set; }
-    public DbSet<Facility> roomFacilities { get; set; }
+    public DbSet<Facility> Facilities { get; set; }
     public DbSet<RType> RTypes { get; set; }
     public DbSet<RoomFacilities> RoomFacilities { get; set; }
     public DbSet<RTypeFacilities> RTypeFacilities { get; set; }
@@ -29,14 +31,15 @@ public class Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HotelReservationSystem;Trusted_Connection=True;MultipleActiveResultSets=true")
+        optionsBuilder.UseSqlServer("Data Source =.; Initial Catalog = HotelReservationSystem; Integrated Security = True; Connect Timeout = 30; Encrypt=True;Trust Server Certificate=True;Application Intent = ReadWrite; Multi Subnet Failover=False")
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
             .EnableSensitiveDataLogging();
     }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-       // modelBuilder.Entity<Instructor>().ToTable("Instructor");
+        // modelBuilder.Entity<Instructor>().ToTable("Instructor");
     }
 }
+//Data Source =.; Initial Catalog = HotelReservationSystem; Integrated Security = True; Connect Timeout = 30; Encrypt=True;Trust Server Certificate=True;Application Intent = ReadWrite; Multi Subnet Failover=False
