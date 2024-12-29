@@ -1,4 +1,5 @@
 
+using HotelSystem.Data.Repository;
 using MediatR;
 
 namespace HotelReservationSystem
@@ -15,6 +16,7 @@ namespace HotelReservationSystem
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddMediatR(typeof(Program).Assembly);
 
             var app = builder.Build();

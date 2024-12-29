@@ -1,6 +1,6 @@
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
-using HotelReservationSystem.ViewModels;
-using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
+using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
+using HotelSystem.ViewModels;
+using HotelSystem.ViewModels.RoomManagment.RoomTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
