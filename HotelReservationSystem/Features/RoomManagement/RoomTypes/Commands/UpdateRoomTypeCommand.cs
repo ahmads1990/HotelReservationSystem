@@ -1,5 +1,5 @@
-﻿using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
+﻿using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
@@ -8,14 +8,14 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
-public record UpdateRoomTypeCommand(int id, string name, double price) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomTypeCommand(int ID, string Name, double Price, string Description) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeCommand, ResponseViewModel<bool>>
 {
-    readonly IRepository<Models.RoomManagement.RType> _repository;
-    readonly IMediator _mediator;
+    private readonly IRepository<RoomType> _repository;
+    private readonly IMediator _mediator;
 
-    public UpdateRoomTypeCommandHandler(IRepository<Models.RoomManagement.RType> repository,
+    public UpdateRoomTypeCommandHandler(IRepository<RoomType> repository,
         IMediator mediator)
     {
         _repository = repository;
@@ -28,14 +28,14 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
         if (!response.IsSuccess)
             return response;
 
-        var updatedRoom = new Models.RoomManagement.RType
-        {
-            ID = request.id,
-            Name = request.name,
-            Price = request.price,
-        };
+        var updatedRoomType = request.Map<RoomType>();
 
-        _repository.SaveInclude(updatedRoom, nameof(RType.Name), nameof(RType.Price));
+        _repository.SaveInclude(updatedRoomType,
+                nameof(RoomType.Name),
+                         nameof(RoomType.Price),
+                         nameof(RoomType.Description)
+        );
+
         _repository.SaveChanges();
 
         return response;
@@ -43,23 +43,27 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomTypeCommand request)
     {
-        if (string.IsNullOrEmpty(request.name))
+        if (string.IsNullOrEmpty(request.Name))
         {
             return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
         }
 
-        if (request.price <= 0)
+        if (string.IsNullOrEmpty(request.Description))
+        {
+            return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Description is required");
+        }
+
+        if (request.Price <= 0)
         {
             return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
         }
 
-        // find room by id
-        //var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.name));
+       var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsByIdNameQuery(request.ID, request.Name));
 
-        //if (roomtypeExists)
-        //{
-        //    return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
-        //}
+        if (roomtypeExists.Data)
+        {
+            return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
+        }
 
         return new SuccessResponseViewModel<bool>(true);
     }

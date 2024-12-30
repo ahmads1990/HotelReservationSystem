@@ -8,8 +8,8 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries
 
     public class IsRoomTypeExistsQueryHandler : IRequestHandler<IsRoomTypeExistsQuery, bool>
     {
-        readonly IRepository<Models.RoomManagement.RType> _repository;
-        public IsRoomTypeExistsQueryHandler(IRepository<Models.RoomManagement.RType> repository)
+        readonly IRepository<Models.RoomManagement.RoomType> _repository;
+        public IsRoomTypeExistsQueryHandler(IRepository<Models.RoomManagement.RoomType> repository)
         {
             _repository = repository;
         }
