@@ -3,8 +3,10 @@
     public class Room : BaseModel
     {
         public string RoomNumber { get; set; }
-        public int RTypeID { get; set; }
-        public RoomType RType { get; set; }
+        public string Description { get; set; }
+        public bool IsAvailable { get; set; }
+        public int RoomTypeID { get; set; }
+        public RoomType RoomType { get; set; }
 
         public ICollection<RoomFacilities> RoomFacilities { get; set; } = new List<RoomFacilities>();
     }
