@@ -10,6 +10,7 @@ using Autofac;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Autofac.Core;
 
 namespace HotelReservationSystem
 {
@@ -22,6 +23,7 @@ namespace HotelReservationSystem
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(container => container.RegisterModule(new AutoFacModule()));
 
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

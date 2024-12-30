@@ -19,8 +19,6 @@ namespace HotelReservationSystem.Data.Repositories{
         public void Add(Entity entity)
         {
             entity.CreatedDate = DateTime.Now;
-            //entity.CreatedBy = userID;
-
             _dbSet.Add(entity);
         }
 

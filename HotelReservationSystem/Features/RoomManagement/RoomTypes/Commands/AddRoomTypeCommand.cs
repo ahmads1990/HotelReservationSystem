@@ -4,6 +4,7 @@ using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
+using System.Security.Claims;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
@@ -11,14 +12,17 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<Models.RoomManagement.RoomType> _repository;
-        readonly IMediator _mediator;
+        private readonly IRepository<RoomType> _repository;
+        private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AddRoomTypeCommandHandler(IRepository<Models.RoomManagement.RoomType> repository,
-            IMediator mediator)
+        public AddRoomTypeCommandHandler(IRepository<RoomType> repository,
+            IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
             _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         public async Task<ResponseViewModel<bool>> Handle(AddRoomTypeCommand request, CancellationToken cancellationToken)
@@ -28,12 +32,16 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new Models.RoomManagement.RoomType
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            int.TryParse(userIdClaim, out int userId);
+            _repository.Add(new RoomType
             {
                 Name = request.name,
                 Price = request.price,
-                Description = "iyeoeeyr"
+                Description = "iyeoeeyr",
+                CreatedBy = userId
             });
+
             _repository.SaveChanges();
             return response;
         }

@@ -25,5 +25,9 @@ public class AutoFacModule: Module
                .Where(c => c.Name.EndsWith("Mediator"))
                .AsImplementedInterfaces()
                .InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(Program).Assembly)
+               .Where(c => c.Name.EndsWith("Accessor"))
+               .AsImplementedInterfaces()
+               .InstancePerLifetimeScope();
     }
 }
