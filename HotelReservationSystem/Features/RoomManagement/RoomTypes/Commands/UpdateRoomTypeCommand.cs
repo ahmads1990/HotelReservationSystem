@@ -39,7 +39,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
         updatedRoomType.UpdatedBy = int.Parse(userIdClaim);
 
         _repository.SaveInclude(updatedRoomType,
-                nameof(RoomType.Name),
+                nameof(RoomType.RoomTypeName),
                          nameof(RoomType.Price),
                          nameof(RoomType.Description)
         );

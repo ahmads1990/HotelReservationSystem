@@ -4,7 +4,7 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Queries
 {
-    public record IsRoomExistsQuery(string name) : IRequest<bool>;
+    public record IsRoomExistsQuery(string roomNumber) : IRequest<bool>;
 
     public class IsRoomExistsQueryHandler : IRequestHandler<IsRoomExistsQuery, bool>
     {
@@ -16,7 +16,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Queries
 
         public async Task<bool> Handle(IsRoomExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _repository.AnyAsync(x => x.RoomNumber == request.name);
+            return await _repository.AnyAsync(x => x.RoomNumber == request.roomNumber);
         }
     }
 }

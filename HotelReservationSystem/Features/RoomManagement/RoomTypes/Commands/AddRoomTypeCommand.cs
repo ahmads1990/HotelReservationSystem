@@ -9,7 +9,7 @@ using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(RoomTypeName name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(RoomTypeName TypeName, double price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
@@ -37,7 +37,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             int.TryParse(userIdClaim, out int userId);
             _repository.Add(new RoomType
             {
-                Name = request.name,
+                RoomTypeName = request.TypeName,
                 Price = request.price,
                 Description = "iyeoeeyr",
                 CreatedBy = userId
@@ -49,7 +49,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
         {
-            if(request.name==null)
+            if(request.TypeName==null)
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
@@ -59,7 +59,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
                 return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
             }
 
-            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.name));
+            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.TypeName));
              
             if(roomtypeExists)
             {

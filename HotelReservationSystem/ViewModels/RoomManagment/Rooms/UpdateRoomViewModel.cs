@@ -4,7 +4,7 @@ using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {
-    public class RoomViewModel
+    public class UpdateRoomViewModel
     {
         public int ID { get; set; }
         public RoomTypeName RoomTypeName { get; set; }

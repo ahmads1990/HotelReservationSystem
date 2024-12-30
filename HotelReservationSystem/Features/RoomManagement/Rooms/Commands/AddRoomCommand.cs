@@ -8,7 +8,7 @@ using HotelReservationSystem.ViewModels.Responses;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomCommand(string roomNumber, string Description, bool isAvailable, string? roomType) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string roomNumber, string Description, bool isAvailable, int roomTypeID) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
     {
@@ -33,7 +33,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
                 RoomNumber = request.roomNumber,
                 Description = request.Description,
                 IsAvailable = request.isAvailable,
-                RoomTypeID = 1
+                RoomTypeID = request.roomTypeID
             });
 
             return response;
@@ -45,10 +45,8 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
-
             
-
-            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.roomType));
+            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.roomNumber));
 
             if (roomtypeExists)
             {

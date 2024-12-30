@@ -4,7 +4,7 @@ namespace HotelReservationSystem.Models.RoomManagement
 {
     public class RoomType : BaseModel
     {
-        public RoomTypeName Name { get; set; }
+        public RoomTypeName RoomTypeName { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
 

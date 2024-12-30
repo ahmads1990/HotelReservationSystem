@@ -9,7 +9,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
         public RoomFacilityProfile()
         {
             CreateMap<Room, RoomViewModel>()
-                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.Name))
+                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.RoomTypeName))
                 .ForMember(dest => dest.Facilities, opt => opt.MapFrom(src => src.RoomFacilities));
 
             //CreateMap<Room, RoomViewModel>()
