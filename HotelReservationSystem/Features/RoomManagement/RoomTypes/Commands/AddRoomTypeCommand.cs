@@ -11,10 +11,10 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<Models.RoomManagement.RType> _repository;
+        readonly IRepository<RType> _repository;
         readonly IMediator _mediator;
 
-        public AddRoomTypeCommandHandler(IRepository<Models.RoomManagement.RType> repository,
+        public AddRoomTypeCommandHandler(IRepository<RType> repository,
             IMediator mediator)
         {
             _repository = repository;
@@ -28,12 +28,13 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new Models.RoomManagement.RType
+            _repository.Add(new RType
             {
                 Name = request.name,
                 Price = request.price,
+                Description = "iyeoeeyr"
             });
-
+            _repository.SaveChanges();
             return response;
         }
 
