@@ -45,24 +45,24 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
     {
         if (string.IsNullOrEmpty(request.Name))
         {
-            return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
+            return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
         }
 
         if (string.IsNullOrEmpty(request.Description))
         {
-            return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Description is required");
+            return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Description is required");
         }
 
         if (request.Price <= 0)
         {
-            return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
+            return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
         }
 
        var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsByIdNameQuery(request.ID, request.Name));
 
         if (roomtypeExists.Data)
         {
-            return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
+            return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
         }
 
         return new SuccessResponseViewModel<bool>(true);
