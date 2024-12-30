@@ -9,7 +9,7 @@ namespace HotelReservationSystem.Data.Repositories{
     {
         Context _context;
         DbSet<Entity> _dbSet;
-
+        readonly string[] immutableProps = {nameof(BaseModel.ID), nameof(BaseModel.CreatedBy), nameof(BaseModel.CreatedDate) };
         public Repository(Context context)
         {
             _context = new Context();
@@ -42,12 +42,14 @@ namespace HotelReservationSystem.Data.Repositories{
 
             foreach (var property in entry.Properties)
             {
-                if(properties.Contains(property.Metadata.Name))
+                if(properties.Contains(property.Metadata.Name) && !immutableProps.Contains(property.Metadata.Name))
                 {
                     property.CurrentValue = entity.GetType().GetProperty(property.Metadata.Name).GetValue(entity);
                     property.IsModified = true;
                 }
             }
+            entity.UpdatedDate = DateTime.Now;
+            entry.Property(nameof(entity.UpdatedBy)).IsModified = true;
         }
 
 

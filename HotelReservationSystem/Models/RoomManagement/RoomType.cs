@@ -6,7 +6,7 @@
         public double Price { get; set; }
         public string Description { get; set; }
 
-        public ICollection<RoomTypeFacilities> RTypeFacilities { get; set; }  = new List<RoomTypeFacilities>();
+        public ICollection<RoomTypeFacilities> RoomTypeFacilities { get; set; }  = new List<RoomTypeFacilities>();
         
     }
 }

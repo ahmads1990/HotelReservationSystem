@@ -5,6 +5,8 @@ using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
@@ -14,12 +16,15 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
 {
     private readonly IRepository<RoomType> _repository;
     private readonly IMediator _mediator;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public UpdateRoomTypeCommandHandler(IRepository<RoomType> repository,
-        IMediator mediator)
+        IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
         _repository = repository;
         _mediator = mediator;
+        _httpContextAccessor = httpContextAccessor;
+
     }
     public async Task<ResponseViewModel<bool>> Handle(UpdateRoomTypeCommand request, CancellationToken cancellationToken)
     {
@@ -29,6 +34,8 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
             return response;
 
         var updatedRoomType = request.Map<RoomType>();
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        updatedRoomType.UpdatedBy = int.Parse(userIdClaim);
 
         _repository.SaveInclude(updatedRoomType,
                 nameof(RoomType.Name),
