@@ -1,10 +1,10 @@
 ﻿namespace HotelReservationSystem.Models.RoomManagement
 {
-    public class RTypeFacilities
+    public class RoomTypeFacilities
     {
         public int ID { get; set; }
         public int RTypeID { get; set; }
-        public RType RType { get; set; }
+        public RoomType RType { get; set; }
 
         public int FacilityID { get; set; }
         public Facility Facility { get; set; }

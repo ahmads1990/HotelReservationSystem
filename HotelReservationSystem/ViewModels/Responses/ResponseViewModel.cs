@@ -21,9 +21,9 @@ public class SuccessResponseViewModel<T> : ResponseViewModel<T>
     }
 }
 
-public class FaluireResponseViewModel<T> : ResponseViewModel<T>
+public class FailureResponseViewModel<T> : ResponseViewModel<T>
 {
-    public FaluireResponseViewModel(ErrorCode errorCode, string message = "")
+    public FailureResponseViewModel(ErrorCode errorCode, string message = "")
     {
         Data = default;
         IsSuccess = false;

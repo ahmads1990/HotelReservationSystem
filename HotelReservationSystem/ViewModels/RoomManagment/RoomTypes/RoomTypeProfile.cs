@@ -3,16 +3,16 @@ using HotelReservationSystem.Models.RoomManagement;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.RTypes
 {
-    public class RTypeProfile : Profile
+    public class RoomTypeProfile : Profile
     {
-        public RTypeProfile()
+        public RoomTypeProfile()
         {
             
-            CreateMap<RType, RTypeViewModel>()
+            CreateMap<RoomType, RoomTypeViewModel>()
            .ForMember(dest => dest.Facilities, opt => opt.MapFrom(src =>
                src.RTypeFacilities.Select(rtf => rtf).ToList()));
 
-            CreateMap<Facility, RTypeViewModel>();
+            CreateMap<Facility, RoomTypeViewModel>();
         }
     }
 

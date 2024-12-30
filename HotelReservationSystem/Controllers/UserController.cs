@@ -66,7 +66,7 @@ public class UserController : ControllerBase
         {
             return new SuccessResponseViewModel<UserLoginResult>(result);
         }
-        return new FaluireResponseViewModel<UserLoginResult>(ErrorCode.UserNotFound, ErrorCode.UserNotFound.ToString());
+        return new FailureResponseViewModel<UserLoginResult>(ErrorCode.UserNotFound, ErrorCode.UserNotFound.ToString());
     }
 
     [HttpGet]
