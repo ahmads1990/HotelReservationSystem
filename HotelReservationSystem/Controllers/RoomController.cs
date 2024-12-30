@@ -1,3 +1,4 @@
+using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
@@ -23,7 +24,8 @@ namespace HotelReservationSystem.Controllers
         [HttpPost()]
         public async Task<ResponseViewModel<bool>> Add(CreateRoomViewModel viewModel)
         {
-            var response = await _mediator.Send(new AddRoomCommand(viewModel., viewModel.Price));
+            var newRoom = viewModel.Map<AddRoomCommand>();
+            var response = await _mediator.Send(newRoom);
 
             return response;
         }
