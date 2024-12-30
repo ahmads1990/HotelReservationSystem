@@ -1,11 +1,12 @@
-﻿using HotelReservationSystem.Data.Repositories;
+﻿using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record IsRoomTypeExistsByIdNameQuery(int ID, string Name) : IRequest<ResponseViewModel<bool>>;
+public record IsRoomTypeExistsByIdNameQuery(int ID, RoomTypeName Name) : IRequest<ResponseViewModel<bool>>;
 
 
 public class IsRoomTypeExistsByIdNameQueryHandler : IRequestHandler<IsRoomTypeExistsByIdNameQuery, ResponseViewModel<bool>>

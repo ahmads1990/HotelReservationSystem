@@ -1,4 +1,5 @@
-﻿using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
+﻿using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
@@ -7,14 +8,13 @@ using HotelReservationSystem.ViewModels.Responses;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string roomNumber, string Description, bool isAvailable, string? roomType) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<Facility> _repository;
+        readonly IRepository<Room> _repository;
         readonly IMediator _mediator;
-
-        public AddRoomCommandHandler(IRepository<Facility> repository,
+        public AddRoomCommandHandler(IRepository<Room> repository,
             IMediator mediator)
         {
             _repository = repository;
@@ -28,10 +28,12 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new Facility
+            _repository.Add(new Room
             {
-                Name = request.name,
-                Price = request.price,
+                RoomNumber = request.roomNumber,
+                Description = request.Description,
+                IsAvailable = request.isAvailable,
+                RoomTypeID = 1
             });
 
             return response;
@@ -39,17 +41,14 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomCommand request)
         {
-            if (string.IsNullOrEmpty(request.name))
+            if (string.IsNullOrEmpty(request.roomNumber))
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
 
-            if (request.price <= 0)
-            {
-                return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
-            }
+            
 
-            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.name));
+            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.roomType));
 
             if (roomtypeExists)
             {

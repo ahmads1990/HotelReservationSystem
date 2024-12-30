@@ -4,7 +4,7 @@ using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
 using MediatR;
 
-namespace HotelReservationSystem.CQRS.UserFeatures.Commands;
+namespace HotelReservationSystem.Features.UserManagement.UserFeatures.Commands;
 
 public record AddUserFeatureCommand(int userID, Feature feature) : IRequest<bool>;
 

@@ -1,10 +1,11 @@
-﻿using HotelReservationSystem.Data.Repositories;
+﻿using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.RoomManagement;
 using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries
 {
-    public record IsRoomTypeExistsQuery(string name) : IRequest<bool>;
+    public record IsRoomTypeExistsQuery(RoomTypeName name) : IRequest<bool>;
 
     public class IsRoomTypeExistsQueryHandler : IRequestHandler<IsRoomTypeExistsQuery, bool>
     {

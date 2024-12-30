@@ -4,9 +4,9 @@ using MediatR;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
 
-namespace HotelReservationSystem.CQRS.UserFeatures.Queries;
+namespace HotelReservationSystem.Features.UserManagement.UserFeatures.Queries;
 
-public record HasAccessQuery(int ID, Feature Featuer) : IRequest<bool>;
+public record HasAccessQuery(int id, Feature featuer) : IRequest<bool>;
 
 public class HasAccessQueryHandler : IRequestHandler<HasAccessQuery, bool>
 {
@@ -21,7 +21,7 @@ public class HasAccessQueryHandler : IRequestHandler<HasAccessQuery, bool>
     public async Task<bool> Handle(HasAccessQuery request, CancellationToken cancellationToken)
     {
         var hasFeature = await _repository.AnyAsync(
-             uf => uf.UserID == request.ID && uf.Feature == request.Featuer);
+             uf => uf.UserID == request.id && uf.Feature == request.featuer);
 
         return hasFeature;
     }

@@ -5,10 +5,11 @@ using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 using System.Security.Claims;
+using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(RoomTypeName name, double price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
@@ -48,7 +49,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
         {
-            if(string.IsNullOrEmpty(request.name))
+            if(request.name==null)
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }

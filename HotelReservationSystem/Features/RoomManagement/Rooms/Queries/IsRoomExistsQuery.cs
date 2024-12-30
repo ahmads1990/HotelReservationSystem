@@ -16,7 +16,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Queries
 
         public async Task<bool> Handle(IsRoomExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _repository.AnyAsync(x => x.RoomType.Name == request.name);
+            return await _repository.AnyAsync(x => x.RoomNumber == request.name);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HotelReservationSystem.Data.Repositories;
+﻿using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record GetRoomTypeByNameQuery(int ID, string Name) : IRequest<ResponseViewModel<RoomType>>;
+public record GetRoomTypeByNameQuery(int ID, RoomTypeName Name) : IRequest<ResponseViewModel<RoomType>>;
 
 
 public class GetRoomTypeByNameQueryHandler : IRequestHandler<GetRoomTypeByNameQuery, ResponseViewModel<RoomType>>

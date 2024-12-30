@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using HotelReservationSystem.CQRS.UserFeatures.Queries;
+using HotelReservationSystem.Features.UserManagement.UserFeatures.Queries;
 using HotelReservationSystem.Data.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
