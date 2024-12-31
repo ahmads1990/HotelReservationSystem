@@ -3,7 +3,7 @@ using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
 using MediatR;
 
-namespace HotelReservationSystem.CQRS.Users.Commands;
+namespace HotelReservationSystem.Features.UserManagement.Users.Commands;
 
 public record RegisterUserCommand(string phoneNo, string name, string userName, string email, string password) : IRequest<bool>;
 

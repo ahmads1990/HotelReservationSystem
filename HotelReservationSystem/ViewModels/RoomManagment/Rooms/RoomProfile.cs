@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
+using HotelReservationSystem.ViewModels.RoomManagment.Rooms;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {
@@ -22,12 +22,12 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
             //    .Select(group => group.First())
             //    .ToList()));
             CreateMap<CreateRoomViewModel, AddRoomCommand>()
-                .ForMember(dest => dest.roomNumber, opt => opt.MapFrom(src => src.RoomNumber))
+                .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.isAvailable, opt => opt.MapFrom(src => src.IsAvailable))
-                .ForMember(dest => dest.roomTypeID, opt => opt.MapFrom(src => src.RoomTypeID));
+                .ForMember(dest => dest.IsAvailable, opt => opt.MapFrom(src => src.IsAvailable))
+                .ForMember(dest => dest.RoomTypeID, opt => opt.MapFrom(src => src.RoomTypeID));
 
-            CreateMap<Facility, FacilityViewModel>();
+            CreateMap<Room, RoomViewModel>();
         }
     }
 

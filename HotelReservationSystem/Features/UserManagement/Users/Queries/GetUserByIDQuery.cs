@@ -4,7 +4,7 @@ using MediatR;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
 
-namespace HotelReservationSystem.CQRS.Users.Queries;
+namespace HotelReservationSystem.Features.UserManagement.Users.Queries;
 
 public record GetUserByIDQuery (int ID) : IRequest<UserViewModel>;
 

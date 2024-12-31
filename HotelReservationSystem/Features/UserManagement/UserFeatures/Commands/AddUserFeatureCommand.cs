@@ -10,15 +10,15 @@ public record AddUserFeatureCommand(int userID, Feature feature) : IRequest<bool
 
 public class AddUserFeatureCommandHandler : IRequestHandler<AddUserFeatureCommand, bool>
 {
-    IRepository<Models.UserManagement.UserFeatures> _repository;
-    public AddUserFeatureCommandHandler(IRepository<Models.UserManagement.UserFeatures> repository)
+    IRepository<Models.UserManagement.UserFeature> _repository;
+    public AddUserFeatureCommandHandler(IRepository<Models.UserManagement.UserFeature> repository)
     {
         _repository = repository;
     }
 
     public Task<bool> Handle(AddUserFeatureCommand request, CancellationToken cancellationToken)
     {
-        _repository.Add(new Models.UserManagement.UserFeatures { Feature = request.feature});
+        _repository.Add(new Models.UserManagement.UserFeature { Feature = request.feature});
         _repository.SaveChanges();
 
         return Task.FromResult(true);

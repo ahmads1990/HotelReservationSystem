@@ -6,5 +6,7 @@ namespace HotelReservationSystem.Data.Enums
     {
         Register = 0,
         GetByID = 1,
+        AddRoom = 2,
+        GetAllRooms = 4,
     }
 }

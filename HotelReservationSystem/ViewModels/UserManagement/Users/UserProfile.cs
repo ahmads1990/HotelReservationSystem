@@ -1,6 +1,6 @@
 using AutoMapper;
-using HotelReservationSystem.CQRS.Users.Commands;
-using HotelReservationSystem.CQRS.Users.Queries;
+using HotelReservationSystem.Features.UserManagement.Users.Commands;
+using HotelReservationSystem.Features.UserManagement.Users.Queries;
 using HotelReservationSystem.Models;
 using HotelReservationSystem.Models.UserManagement;
 

@@ -8,7 +8,7 @@ using HotelReservationSystem.ViewModels.Responses;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomCommand(string roomNumber, string Description, bool isAvailable, int roomTypeID) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string RoomNumber, string Description, bool IsAvailable, int RoomTypeID, int CreatedBy) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
     {
@@ -30,10 +30,11 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 
             _repository.Add(new Room
             {
-                RoomNumber = request.roomNumber,
+                RoomNumber = request.RoomNumber,
                 Description = request.Description,
-                IsAvailable = request.isAvailable,
-                RoomTypeID = request.roomTypeID
+                IsAvailable = request.IsAvailable,
+                RoomTypeID = request.RoomTypeID,
+                CreatedBy = request.CreatedBy,
             });
             _repository.SaveChanges();
             return response;
@@ -41,12 +42,12 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomCommand request)
         {
-            if (string.IsNullOrEmpty(request.roomNumber))
+            if (string.IsNullOrEmpty(request.RoomNumber))
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
             
-            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.roomNumber));
+            var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.RoomNumber));
 
             if (roomtypeExists)
             {

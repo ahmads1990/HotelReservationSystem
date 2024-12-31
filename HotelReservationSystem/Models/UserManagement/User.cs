@@ -16,5 +16,5 @@ public class User : BaseModel
     public int RoleID { get; set; }
     public Role Role { get; set; }
 
-    public ICollection<UserFeatures> UserFeatures { get; set; }
+    public ICollection<UserFeature> UserFeatures { get; set; }
 }

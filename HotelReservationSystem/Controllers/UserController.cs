@@ -1,7 +1,7 @@
 using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.CQRS.Users.Commands;
-using HotelReservationSystem.CQRS.Users.Queries;
 using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Features.UserManagement.Users.Commands;
+using HotelReservationSystem.Features.UserManagement.Users.Queries;
 using HotelReservationSystem.Filters;
 using HotelReservationSystem.Helpers;
 using HotelReservationSystem.Models.Enums;
@@ -41,8 +41,8 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    [Authorize]
-    [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments =new object[] {Feature.GetByID})]
+    // [Authorize]
+    // [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments =new object[] {Feature.GetByID})]
     public async Task<UserViewModel> GetByID(int id)
     {
         var istructor = await _mediator.Send(new GetUserByIDQuery(id));

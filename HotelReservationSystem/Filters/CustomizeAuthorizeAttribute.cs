@@ -20,28 +20,30 @@ namespace HotelReservationSystem.Filters
             _mediator = mediator;
         }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
+        
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var claims = context.HttpContext.User;
-             
-            var userID = claims.FindFirst("ID");
+            var userID = claims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (userID is null || string.IsNullOrEmpty(userID.Value))
+            if (userID is null || string.IsNullOrEmpty(userID))
             {
                 throw new UnauthorizedAccessException();
             }
 
-            var user = int.Parse(userID.Value);
+            var user = int.Parse(userID);
 
-
-            var hasAccess = _mediator.Send(new HasAccessQuery(user, _feature)).GetAwaiter().GetResult();
+            // Await the asynchronous call
+            var hasAccess = await _mediator.Send(new HasAccessQuery(user, _feature));
 
             if (!hasAccess)
             {
                 throw new UnauthorizedAccessException();
             }
 
-            base.OnActionExecuting(context);
+            // Proceed to the next action
+            await base.OnActionExecutionAsync(context, next);
         }
+
     }
 }

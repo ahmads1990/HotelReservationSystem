@@ -4,7 +4,7 @@ using HotelReservationSystem.Models;
 using HotelReservationSystem.ViewModels.Users;
 using MediatR;
 
-namespace HotelReservationSystem.CQRS.Users.Queries;
+namespace HotelReservationSystem.Features.UserManagement.Users.Queries;
 
 public record UserLogInQuery(string email, string password) : IRequest<(int, bool)>;
 

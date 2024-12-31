@@ -15,15 +15,15 @@ public class Context : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
-    public DbSet<UserFeatures> UserFeatures { get; set; }
+    public DbSet<UserFeature> UserFeatures { get; set; }
     public DbSet<RoleFeatures> RoleFeatures { get; set; }
 
     // Rooms Management
     public DbSet<Room> rooms { get; set; }
     public DbSet<Facility> Facilities { get; set; }
-    public DbSet<RoomType> RTypes { get; set; }
+    public DbSet<RoomType> RoomTypes { get; set; }
     public DbSet<RoomFacilities> RoomFacilities { get; set; }
-    public DbSet<RoomTypeFacilities> RTypeFacilities { get; set; }
+    public DbSet<RoomTypeFacilities> RoomTypeFacilities { get; set; }
 
     // Offers Management
 
@@ -31,7 +31,7 @@ public class Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source =.; Initial Catalog = HotelReservationSystem; Integrated Security = True; Connect Timeout = 30; Encrypt=True;Trust Server Certificate=True;Application Intent = ReadWrite; Multi Subnet Failover=False")
+        optionsBuilder.UseSqlServer("Data Source =.; Initial Catalog = HotelReservationSystemDB; Integrated Security = True; Connect Timeout = 30; Encrypt=True;Trust Server Certificate=True;Application Intent = ReadWrite; Multi Subnet Failover=False")
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
             .EnableSensitiveDataLogging();

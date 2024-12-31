@@ -30,7 +30,7 @@ namespace HotelReservationSystem.Helpers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                new Claim("ID", userID.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, userID.ToString()),
             }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 Issuer = issuer,
