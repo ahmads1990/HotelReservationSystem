@@ -12,7 +12,7 @@ namespace HotelReservationSystem.Data.Repositories{
         readonly string[] immutableProps = {nameof(BaseModel.ID), nameof(BaseModel.CreatedBy), nameof(BaseModel.CreatedDate) };
         public Repository(Context context)
         {
-            _context = new Context();
+            _context = context;
             _dbSet = _context.Set<Entity>();
         }
 

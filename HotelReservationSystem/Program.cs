@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Autofac.Core;
+using HotelReservationSystem.Data;
 
 namespace HotelReservationSystem
 {
@@ -21,7 +22,12 @@ namespace HotelReservationSystem
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            builder.Host.ConfigureContainer<ContainerBuilder>(container => container.RegisterModule(new AutoFacModule()));
+
+            builder.Host.ConfigureContainer<ContainerBuilder>(
+                container =>
+                {
+                    container.RegisterModule<AutoFacModule>();
+                });
 
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
@@ -33,12 +39,7 @@ namespace HotelReservationSystem
 
             builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-            builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
-            {
-                containerBuilder.RegisterType<TokenHelper>().AsSelf().InstancePerLifetimeScope();
-            });
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            var jwtSettings = configuration.GetSection("JwtSettings");
+            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
             var key = Encoding.UTF8.GetBytes(jwtSettings.GetValue<string>("SecretKey"));
 
             builder.Services.AddAuthentication(opts =>
