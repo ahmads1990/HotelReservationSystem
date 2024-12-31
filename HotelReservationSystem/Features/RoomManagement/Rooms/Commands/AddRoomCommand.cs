@@ -35,7 +35,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
                 IsAvailable = request.isAvailable,
                 RoomTypeID = request.roomTypeID
             });
-
+            _repository.SaveChanges();
             return response;
         }
 

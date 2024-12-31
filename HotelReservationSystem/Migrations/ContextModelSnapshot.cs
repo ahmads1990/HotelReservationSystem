@@ -89,7 +89,7 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("Facilities");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RType", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.Room", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -110,71 +110,16 @@ namespace HotelReservationSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("RTypes");
-                });
-
-            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RTypeFacilities", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("FacilityID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RTypeID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("FacilityID");
-
-                    b.HasIndex("RTypeID");
-
-                    b.ToTable("RTypeFacilities");
-                });
-
-            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.Room", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
-
-                    b.Property<int>("RTypeID")
-                        .HasColumnType("int");
 
                     b.Property<string>("RoomNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomTypeID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -183,7 +128,7 @@ namespace HotelReservationSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("RTypeID");
+                    b.HasIndex("RoomTypeID");
 
                     b.ToTable("rooms");
                 });
@@ -209,6 +154,67 @@ namespace HotelReservationSystem.Migrations
                     b.HasIndex("RoomID");
 
                     b.ToTable("RoomFacilities");
+                });
+
+            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RoomType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RoomTypeName")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RTypes");
+                });
+
+            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RoomTypeFacilities", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("FacilityID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomTypeID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FacilityID");
+
+                    b.HasIndex("RoomTypeID");
+
+                    b.ToTable("RTypeFacilities");
                 });
 
             modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.Role", b =>
@@ -346,34 +352,15 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("UserFeatures");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RTypeFacilities", b =>
-                {
-                    b.HasOne("HotelReservationSystem.Models.RoomManagement.Facility", "Facility")
-                        .WithMany("RTypeFacilities")
-                        .HasForeignKey("FacilityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelReservationSystem.Models.RoomManagement.RType", "RType")
-                        .WithMany("RTypeFacilities")
-                        .HasForeignKey("RTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Facility");
-
-                    b.Navigation("RType");
-                });
-
             modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.Room", b =>
                 {
-                    b.HasOne("HotelReservationSystem.Models.RoomManagement.RType", "RType")
+                    b.HasOne("HotelReservationSystem.Models.RoomManagement.RoomType", "RoomType")
                         .WithMany()
-                        .HasForeignKey("RTypeID")
+                        .HasForeignKey("RoomTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("RType");
+                    b.Navigation("RoomType");
                 });
 
             modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RoomFacilities", b =>
@@ -393,6 +380,25 @@ namespace HotelReservationSystem.Migrations
                     b.Navigation("Facility");
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RoomTypeFacilities", b =>
+                {
+                    b.HasOne("HotelReservationSystem.Models.RoomManagement.Facility", "Facility")
+                        .WithMany("RTypeFacilities")
+                        .HasForeignKey("FacilityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HotelReservationSystem.Models.RoomManagement.RoomType", "RoomType")
+                        .WithMany("RoomTypeFacilities")
+                        .HasForeignKey("RoomTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
+
+                    b.Navigation("RoomType");
                 });
 
             modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.RoleFeatures", b =>
@@ -433,14 +439,14 @@ namespace HotelReservationSystem.Migrations
                     b.Navigation("RTypeFacilities");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RType", b =>
-                {
-                    b.Navigation("RTypeFacilities");
-                });
-
             modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.Room", b =>
                 {
                     b.Navigation("RoomFacilities");
+                });
+
+            modelBuilder.Entity("HotelReservationSystem.Models.RoomManagement.RoomType", b =>
+                {
+                    b.Navigation("RoomTypeFacilities");
                 });
 
             modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.Role", b =>
