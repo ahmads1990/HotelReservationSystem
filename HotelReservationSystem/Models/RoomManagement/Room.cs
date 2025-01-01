@@ -8,6 +8,6 @@
         public int RoomTypeID { get; set; }
         public RoomType RoomType { get; set; }
 
-        public ICollection<RoomFacilities> RoomFacilities { get; set; } = new List<RoomFacilities>();
+        public ICollection<RoomFacility> RoomFacilities { get; set; } = new List<RoomFacility>();
     }
 }

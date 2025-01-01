@@ -30,17 +30,10 @@ namespace HotelReservationSystem.Controllers
         [HttpPost]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.AddRoom })]
-
         public async Task<ResponseViewModel<bool>> Add(CreateRoomViewModel viewModel)
         {
             int id = int.TryParse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var parsedId) ? parsedId : -1;
-            // var http = HttpContext;
-            // var user = http.User;
-            // var userId = user.FindFirst("ID")?.Value;
-            // int id = int.Parse(userId);
-            var newRoom = new AddRoomCommand(viewModel.RoomNumber, viewModel.Description, viewModel.IsAvailable, viewModel.RoomTypeID, id);
-
-            
+            var newRoom = new AddRoomCommand(viewModel.RoomNumber, viewModel.Description, viewModel.IsAvailable, viewModel.RoomTypeID, id, viewModel.RoomFacilities);
             var response = await _mediator.Send(newRoom);
 
             return response;

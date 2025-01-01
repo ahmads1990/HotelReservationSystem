@@ -16,7 +16,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
             //CreateMap<Room, RoomViewModel>()
             //.ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.Name))
             //.ForMember(dest => dest.Facilities, opt => opt.MapFrom(src =>
-            //    src.RoomType.RoomTypeFacilities.Select(rtf => rtf.RoomFacility)
+            //    src.RoomType.RoomTypeFacility.Select(rtf => rtf.RoomFacility)
             //    .Concat(src.RoomFacilityAssignments.Select(rfa => rfa.RoomFacility))
             //    .GroupBy(f => f.Name)
             //    .Select(group => group.First())

@@ -22,8 +22,8 @@ public class Context : DbContext
     public DbSet<Room> rooms { get; set; }
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<RoomType> RoomTypes { get; set; }
-    public DbSet<RoomFacilities> RoomFacilities { get; set; }
-    public DbSet<RoomTypeFacilities> RoomTypeFacilities { get; set; }
+    public DbSet<RoomFacility> RoomFacilities { get; set; }
+    public DbSet<RoomTypeFacility> RoomTypeFacilities { get; set; }
 
     // Offers Management
 

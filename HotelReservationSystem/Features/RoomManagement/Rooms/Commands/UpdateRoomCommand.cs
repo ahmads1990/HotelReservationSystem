@@ -12,7 +12,7 @@ using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
-public record UpdateRoomCommand(int ID, string roomNumber, string Description, bool isavailable, int[] facilities) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomCommand(int ID, string roomNumber, string description, bool isAvailable,int roomTypeID, int[] customFacilities) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, ResponseViewModel<bool>>
 {
@@ -34,16 +34,26 @@ public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, Respo
 
         if (!response.IsSuccess)
             return response;
+        
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null)
+        {
+            return new ResponseViewModel<bool>
+            {
+                IsSuccess = false,
+                Message = "Unauthorized"
+            };
+        }
+        var userId = int.Parse(userIdClaim);
 
         var updatedRoom = request.Map<Room>();
-        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        updatedRoom.UpdatedBy = int.Parse(userIdClaim);
-
+        updatedRoom.UpdatedBy = userId;
         _repository.SaveInclude(updatedRoom,
                 nameof(Room.RoomNumber),
-                         nameof(Room.Description),
-                         nameof(Room.IsAvailable),
+                nameof(Room.Description),
+                nameof(Room.IsAvailable),
                 nameof(Room.RoomTypeID),
+                nameof(Room.UpdatedBy),
                 nameof(Room.RoomFacilities)
         );
 
@@ -64,7 +74,7 @@ public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, Respo
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "room number is required");
         }
 
-        if (string.IsNullOrEmpty(request.Description))
+        if (string.IsNullOrEmpty(request.description))
         {
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Description is required");
         }
