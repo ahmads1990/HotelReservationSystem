@@ -8,5 +8,7 @@ namespace HotelReservationSystem.Data.Enums
         GetByID = 1,
         AddRoom = 2,
         GetAllRooms = 4,
+        UpdateRoom = 5,
+        DeleteRoom = 6,
     }
 }

@@ -40,6 +40,8 @@ namespace HotelReservationSystem.Controllers
         }
 
         [HttpPut]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.UpdateRoom })]
         public async Task<ResponseViewModel<bool>> Update(UpdateRoomViewModel viewModel)
         {
             var command = viewModel.Map<UpdateRoomCommand>();
@@ -54,6 +56,15 @@ namespace HotelReservationSystem.Controllers
         public async Task<ResponseViewModel<IEnumerable<Room>>> GetAllRooms()
         {
             var types = await _mediator.Send(new GetAllRoomsQuery());
+            return types;
+        }
+        
+        [HttpPut]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoom })]
+        public async Task<ResponseViewModel<bool>> DeleteRoom(string roomNumber)
+        {
+            var types = await _mediator.Send(new DeleteRoomCommand(roomNumber));
             return types;
         }
     }
