@@ -12,15 +12,15 @@ using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
-public record DeleteRoomCommand(string roomNumber) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomWhenTypeChangedCommand(RoomTypeName typeName) : IRequest<ResponseViewModel<bool>>;
 
-public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, ResponseViewModel<bool>>
+public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoomWhenTypeChangedCommand, ResponseViewModel<bool>>
 {
     private readonly IRepository<Room> _repository;
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
    
-    public DeleteRoomCommandHandler(IRepository<Room> repository,
+    public UpdateRoomWhenTypeChangedCommandHandler(IRepository<Room> repository,
         IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
         _repository = repository;
@@ -28,7 +28,7 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
         _httpContextAccessor = httpContextAccessor;
 
     }
-    public async Task<ResponseViewModel<bool>> Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseViewModel<bool>> Handle(UpdateRoomWhenTypeChangedCommand request, CancellationToken cancellationToken)
     {
         var response = await ValidateRequest(request);
 
@@ -45,36 +45,39 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
             };
         }
         var userId = int.Parse(userIdClaim);
+        
+        var defaultRoomType = RoomTypeName.Single;
 
-        var deletedRoom = request.Map<Room>();
-        deletedRoom.UpdatedBy = userId;
-        deletedRoom.Deleted = true;
-        _repository.SaveInclude(deletedRoom,
-                nameof(Room.Deleted),
-                nameof(Room.UpdatedBy)
-        );
-        _repository.SaveChanges();
+        
+        // var rowsAffected = await _repository
+        //     .Where(r => r.RoomTypeID == (int)targetRoomType)
+        //     .ExecuteUpdateAsync(
+        //         r => r
+        //             .SetProperty(r => r.RoomTypeID, _ => (int)defaultRoomType)
+        //             .SetProperty(r => r.UpdatedBy, _ => userId)
+        //             .SetProperty(r => r.UpdatedAt, _ => DateTime.UtcNow),
+        //         cancellationToken);
+
+        // if (rowsAffected == 0)
+        // {
+        //     return new ResponseViewModel<bool>
+        //     {
+        //         IsSuccess = false,
+        //         Message = "No rooms were updated. Ensure the specified room type exists."
+        //     };
+        // }
 
         return response;
     }
 
-    private async Task<ResponseViewModel<bool>> ValidateRequest(DeleteRoomCommand request)
+    private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomWhenTypeChangedCommand request)
     {
         
-        if (request.roomNumber == default)
+        if (request == default)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "room ID is required");
         }
-        var roomExists = await _mediator.Send(new IsRoomExistsQuery(request.roomNumber));
-
-        if (!roomExists)
-        {
-            return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput);
-        }
         
-
-       
-
         return new SuccessResponseViewModel<bool>(true);
     }
 }

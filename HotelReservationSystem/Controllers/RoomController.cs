@@ -50,15 +50,6 @@ namespace HotelReservationSystem.Controllers
             return response;
         }
 
-        [HttpGet]
-        [Authorize]
-        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetAllRooms })]
-        public async Task<ResponseViewModel<IEnumerable<Room>>> GetAllRooms()
-        {
-            var types = await _mediator.Send(new GetAllRoomsQuery());
-            return types;
-        }
-        
         [HttpPut]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoom })]
@@ -67,6 +58,34 @@ namespace HotelReservationSystem.Controllers
             var types = await _mediator.Send(new DeleteRoomCommand(roomNumber));
             return types;
         }
+        
+        [HttpGet]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetAllRooms })]
+        public async Task<ResponseViewModel<IEnumerable<Room>>> GetAllRooms()
+        {
+            var rooms = await _mediator.Send(new GetAllRoomsQuery());
+            return rooms;
+        }
+        
+        [HttpGet]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetRoomByRoomNumber })]
+        public async Task<ResponseViewModel<Room>> GetRoomByRoomNumber(string roomNumber)
+        {
+            var room = await _mediator.Send(new GetRoomByRoomNumberQuery(roomNumber));
+            return room;
+        }
+        
+        [HttpGet]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetAvailableRooms })]
+        public async Task<ResponseViewModel<IEnumerable<Room>>> GetAvailableRooms()
+        {
+            var rooms = await _mediator.Send(new GetAvailableRoomsQuery());
+            return rooms;
+        }
+        
     }
 }
  

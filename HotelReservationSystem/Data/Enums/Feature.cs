@@ -5,10 +5,26 @@ namespace HotelReservationSystem.Data.Enums
     public enum Feature
     {
         Register = 0,
-        GetByID = 1,
+        GetUserByID = 1,
         AddRoom = 2,
         GetAllRooms = 4,
         UpdateRoom = 5,
         DeleteRoom = 6,
+        GetRoomByRoomNumber = 7,
+        GetAvailableRooms = 8,
+        GetAllReservedRooms = 9,
+        GetAllReservations,
+        AddReservation,
+        UpdateReservation,
+        DeleteReservation,
+        GetAllReservationsHistory,
+        GetUsers ,
+        AddUser ,
+        UpdateUser,
+        DeleteUser,
+        GetAllUsers,
+        
+        
+        
     }
 }
