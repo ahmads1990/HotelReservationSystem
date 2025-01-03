@@ -1,24 +1,29 @@
-﻿using HotelSystem.Data.Repository;
-using HotelSystem.Features.RoomManagement.RoomTypes.Queries;
-using HotelSystem.Models.Enums;
-using HotelSystem.Models.RoomManagement;
-using HotelSystem.ViewModels;
+﻿using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Models.Enums;
+using HotelReservationSystem.Models.RoomManagement;
+using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
+using System.Security.Claims;
+using HotelReservationSystem.Data.Enums;
 
-namespace HotelSystem.Features.RoomManagement.RoomTypes.Commands
+namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(RoomTypeName TypeName, double price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
-        readonly IRepository<RoomType> _repository;
-        readonly IMediator _mediator;
+        private readonly IRepository<RoomType> _repository;
+        private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AddRoomTypeCommandHandler(IRepository<RoomType> repository,
-            IMediator mediator)
+            IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
             _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         public async Task<ResponseViewModel<bool>> Handle(AddRoomTypeCommand request, CancellationToken cancellationToken)
@@ -28,32 +33,37 @@ namespace HotelSystem.Features.RoomManagement.RoomTypes.Commands
             if (!response.IsSuccess)
                 return response;
 
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            int.TryParse(userIdClaim, out int userId);
             _repository.Add(new RoomType
             {
-                Name = request.name,
+                RoomTypeName = request.TypeName,
                 Price = request.price,
+                Description = "iyeoeeyr",
+                CreatedBy = userId
             });
 
+            _repository.SaveChanges();
             return response;
         }
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
         {
-            if(string.IsNullOrEmpty(request.name))
+            if(request.TypeName==null)
             {
-                return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
+                return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
 
             if (request.price <= 0)
             {
-                return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
+                return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
             }
 
-            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.name));
-
+            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.TypeName));
+             
             if(roomtypeExists)
             {
-                return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
+                return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
             }
 
             return new SuccessResponseViewModel<bool>(true);

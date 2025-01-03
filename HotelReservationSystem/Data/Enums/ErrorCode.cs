@@ -1,5 +1,5 @@
 ﻿
-namespace HotelSystem.Models.Enums;
+namespace HotelReservationSystem.Models.Enums;
 
 public enum ErrorCode
 {
@@ -8,4 +8,8 @@ public enum ErrorCode
     FieldIsEmpty,
     InvalidInput,
     ItemAlreadyExists,
+
+
+    UserNotFound,
+    RoomNotFound,
 }

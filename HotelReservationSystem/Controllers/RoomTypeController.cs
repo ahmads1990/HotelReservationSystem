@@ -3,16 +3,27 @@ using HotelReservationSystem.ViewModels;
 using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.RoomManagment.RoomTypes;
+using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Models.RoomManagement;
+using HotelReservationSystem.ViewModels.Responses;
+using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
+using HotelReservationSystem.ViewModels.RoomManagment.RTypes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelSystem.Controllers
+namespace HotelReservationSystem.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
     public class RoomTypeController : ControllerBase
     {
         readonly IMediator _mediator;
+
         public RoomTypeController(IMediator mediator)
         {
             _mediator = mediator;
@@ -25,6 +36,22 @@ namespace HotelSystem.Controllers
 
             return response;
         }
+
+        [HttpPut]
+        public async Task<ResponseViewModel<bool>> Update(UpdateRoomTypeViewModel viewModel)
+        {
+            var command = viewModel.Map<UpdateRoomTypeCommand>();
+            var response = await _mediator.Send(command);
+
+            return response;
+        }
+
+        [HttpGet]
+        public async Task<ResponseViewModel<IEnumerable<RoomType>>> GetAllRoomTypes()
+        {
+            var types = await _mediator.Send(new GetAllRoomTypesQuery());
+            return types;
+        }
         [HttpGet("GetAllRoomsType")]
         public async Task<ResponseDTO> GetAllRoomsType()
         {
@@ -33,3 +60,4 @@ namespace HotelSystem.Controllers
         }
     }
 }
+ 

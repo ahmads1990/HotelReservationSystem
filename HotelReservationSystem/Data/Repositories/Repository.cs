@@ -1,17 +1,16 @@
-﻿using HotelSystem.Models;
+﻿using HotelReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq.Expressions;
 
-namespace HotelSystem.Data.Repository
-{
+namespace HotelReservationSystem.Data.Repositories{
     public class Repository<Entity> : IRepository<Entity> where Entity : BaseModel
     {
         Context _context;
         DbSet<Entity> _dbSet;
-
-        public Repository()
+        readonly string[] immutableProps = {nameof(BaseModel.ID), nameof(BaseModel.CreatedBy), nameof(BaseModel.CreatedDate) };
+        public Repository(Context context)
         {
             _context = new Context();
             _dbSet = _context.Set<Entity>();
@@ -20,8 +19,6 @@ namespace HotelSystem.Data.Repository
         public void Add(Entity entity)
         {
             entity.CreatedDate = DateTime.Now;
-            //entity.CreatedBy = userID;
-
             _dbSet.Add(entity);
         }
 
@@ -43,12 +40,14 @@ namespace HotelSystem.Data.Repository
 
             foreach (var property in entry.Properties)
             {
-                if(properties.Contains(property.Metadata.Name))
+                if(properties.Contains(property.Metadata.Name) && !immutableProps.Contains(property.Metadata.Name))
                 {
                     property.CurrentValue = entity.GetType().GetProperty(property.Metadata.Name).GetValue(entity);
                     property.IsModified = true;
                 }
             }
+            entity.UpdatedDate = DateTime.Now;
+            entry.Property(nameof(entity.UpdatedBy)).IsModified = true;
         }
 
 

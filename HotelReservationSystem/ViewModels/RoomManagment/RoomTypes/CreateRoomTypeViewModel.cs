@@ -1,8 +1,10 @@
-﻿namespace HotelSystem.ViewModels.RoomManagment.RoomTypes
+﻿using HotelReservationSystem.Data.Enums;
+
+namespace HotelReservationSystem.ViewModels.RoomManagment.RTypes
 {
     public class CreateRoomTypeViewModel
     {
-        public string Name { get; set; }
+        public RoomTypeName Name { get; set; }
         public double Price { get; set; }
     }
 }
