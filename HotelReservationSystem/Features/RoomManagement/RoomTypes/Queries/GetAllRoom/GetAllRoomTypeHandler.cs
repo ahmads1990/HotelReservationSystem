@@ -1,6 +1,6 @@
-﻿using HotelReservationSystem.ViewModels;
-using HotelSystem.Data.Repository;
-using HotelSystem.Models.RoomManagement;
+﻿using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Models.RoomManagement;
+using HotelReservationSystem.ViewModels;
 using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom
@@ -21,7 +21,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAl
             var roomType = _roomRepo.GetAll()
                 .Select(x => new GetAllRoomTypeDto
                 {
-                    Name = x.Name,
+                    RoomTypeName = x.RoomTypeName,
                     Price = x.Price
                 }).ToList();
 

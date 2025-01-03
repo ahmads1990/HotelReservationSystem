@@ -1,4 +1,4 @@
-﻿using HotelSystem.Models.Enums;
+﻿using HotelReservationSystem.Models.Enums;
 
 namespace HotelReservationSystem.ViewModels
 {
