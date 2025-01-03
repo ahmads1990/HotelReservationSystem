@@ -13,6 +13,7 @@ namespace HotelReservationSystem.Data.Enums
         GetRoomByRoomNumber = 7,
         GetAvailableRooms = 8,
         GetAllReservedRooms = 9,
+        DeleteRoomType = 10,
         GetAllReservations,
         AddReservation,
         UpdateReservation,
