@@ -1,14 +1,11 @@
 ﻿using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
@@ -19,7 +16,7 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
     private readonly IRepository<Room> _repository;
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
-   
+
     public DeleteRoomCommandHandler(IRepository<Room> repository,
         IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
@@ -34,7 +31,7 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
 
         if (!response.IsSuccess)
             return response;
-        
+
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdClaim == null)
         {
@@ -60,7 +57,7 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(DeleteRoomCommand request)
     {
-        
+
         if (request.roomNumber == default)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "room ID is required");
@@ -71,9 +68,9 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Respo
         {
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput);
         }
-        
 
-       
+
+
 
         return new SuccessResponseViewModel<bool>(true);
     }

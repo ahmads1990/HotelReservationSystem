@@ -1,14 +1,13 @@
 using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
 using HotelReservationSystem.Models.RoomManagement;
+using HotelReservationSystem.ViewModels;
 using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
 using HotelReservationSystem.ViewModels.RoomManagment.RTypes;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationSystem.Controllers
@@ -47,6 +46,11 @@ namespace HotelReservationSystem.Controllers
             var types = await _mediator.Send(new GetAllRoomTypesQuery());
             return types;
         }
+        [HttpGet("GetAllRoomsType")]
+        public async Task<ResponseDTO> GetAllRoomsType()
+        {
+            var response = await _mediator.Send(new GetAllRoomTypeQuery());
+            return response;
+        }
     }
 }
- 
