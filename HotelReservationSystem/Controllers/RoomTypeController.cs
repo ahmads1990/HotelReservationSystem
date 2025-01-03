@@ -1,3 +1,5 @@
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
+using HotelReservationSystem.ViewModels;
 using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.RoomManagment.RoomTypes;
@@ -21,6 +23,12 @@ namespace HotelSystem.Controllers
         {
             var response = await _mediator.Send(new AddRoomTypeCommand(viewModel.Name, viewModel.Price));
 
+            return response;
+        }
+        [HttpGet("GetAllRoomsType")]
+        public async Task<ResponseDTO> GetAllRoomsType()
+        {
+            var response = await _mediator.Send(new GetAllRoomTypeQuery());
             return response;
         }
     }
