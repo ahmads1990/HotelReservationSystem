@@ -2,6 +2,7 @@ using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
 using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels;

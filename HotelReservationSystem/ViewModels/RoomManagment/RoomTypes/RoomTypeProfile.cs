@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-<<<<<<< HEAD
-=======
-using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
->>>>>>> ff538dde934fb10473c2d11461008bdf586b7e8c
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
@@ -24,7 +20,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.RTypes
 
             CreateMap<Facility, RoomTypeViewModel>();
             CreateMap<DeleteRoomTypeCommand, RoomType>()
-                        .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.typeName)) // Map typeName to the Name property
+                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.typeName)) // Map typeName to the Name property
                         .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore()) // Ignore properties you will set manually
                         .ForMember(dest => dest.Deleted, opt => opt.Ignore());
         }

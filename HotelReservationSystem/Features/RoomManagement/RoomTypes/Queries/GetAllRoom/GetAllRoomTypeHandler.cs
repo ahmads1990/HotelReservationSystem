@@ -21,7 +21,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAl
             var roomType = _roomRepo.GetAll()
                 .Select(x => new GetAllRoomTypeDto
                 {
-                    RoomTypeName = x.RoomTypeName,
+                    RoomTypeName = x.Name,
                     Price = x.Price
                 }).ToList();
 
