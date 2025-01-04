@@ -27,7 +27,8 @@ namespace HotelReservationSystem.Controllers
         [HttpPost()]
         public async Task<ResponseViewModel<bool>> Add(CreateRoomTypeViewModel viewModel)
         {
-            var response = await _mediator.Send(new AddRoomTypeCommand(viewModel.Name, viewModel.Price));
+            var command = viewModel.Map<AddRoomTypeCommand>();
+            var response = await _mediator.Send(command);
 
             return response;
         }

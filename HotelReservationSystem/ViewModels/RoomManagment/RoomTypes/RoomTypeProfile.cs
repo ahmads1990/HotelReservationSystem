@@ -14,6 +14,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.RTypes
            .ForMember(dest => dest.Facilities, opt => opt.MapFrom(src =>
                src.RoomTypeFacilities.Select(rtf => rtf).ToList()));
 
+            CreateMap<CreateRoomTypeViewModel, AddRoomTypeCommand>();
             CreateMap<UpdateRoomTypeViewModel, UpdateRoomTypeCommand>();
             CreateMap<UpdateRoomTypeCommand, RoomType>();
 

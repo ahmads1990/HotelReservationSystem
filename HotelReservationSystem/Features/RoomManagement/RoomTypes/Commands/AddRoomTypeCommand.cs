@@ -9,7 +9,7 @@ using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(string Name, double Price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(string Name, string Description, double Price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
@@ -39,7 +39,7 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             {
                 Name = request.Name,
                 Price = request.Price,
-                Description = "iyeoeeyr",
+                Description = request.Description,
                 CreatedBy = userId
             });
 
