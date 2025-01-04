@@ -66,9 +66,14 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
         }
 
-       var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsByIdNameQuery(request.ID, request.Name));
+        var validationResult = await _mediator.Send(new ValidateRoomTypeUpdateQuery(request.ID, request.Name));
 
-        if (roomtypeExists.Data)
+        if (!validationResult.Data.ExistsById)
+        {
+            return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
+        }
+
+        if (!validationResult.Data.NameIsUnique)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
         }
