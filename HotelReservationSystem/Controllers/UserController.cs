@@ -2,7 +2,6 @@ using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.UserManagement.Users.Commands;
 using HotelReservationSystem.Features.UserManagement.Users.Queries;
-using HotelReservationSystem.Filters;
 using HotelReservationSystem.Helpers;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.ViewModels.Responses;
@@ -39,7 +38,7 @@ public class UserController : ControllerBase
         var isAdded = await _mediator.Send(user);
         return isAdded;
     }
-    
+
     [HttpGet]
     // [Authorize]
     // [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments =new object[] {Feature.GetByID})]

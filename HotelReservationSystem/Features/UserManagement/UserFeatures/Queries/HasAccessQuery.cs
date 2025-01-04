@@ -1,8 +1,7 @@
-using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
-using MediatR;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
+using MediatR;
 
 namespace HotelReservationSystem.Features.UserManagement.UserFeatures.Queries;
 

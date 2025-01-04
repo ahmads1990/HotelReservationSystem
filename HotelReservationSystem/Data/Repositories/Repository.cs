@@ -1,21 +1,21 @@
 ﻿using HotelReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
 using System.Linq.Expressions;
 
-namespace HotelReservationSystem.Data.Repositories{
+namespace HotelReservationSystem.Data.Repositories
+{
     public class Repository<Entity> : IRepository<Entity> where Entity : BaseModel
     {
         Context _context;
         DbSet<Entity> _dbSet;
-        readonly string[] immutableProps = {nameof(BaseModel.ID), nameof(BaseModel.CreatedBy), nameof(BaseModel.CreatedDate) };
+        readonly string[] immutableProps = { nameof(BaseModel.ID), nameof(BaseModel.CreatedBy), nameof(BaseModel.CreatedDate) };
         public Repository(Context context)
         {
-            _context = new Context();
+            _context = context;
             _dbSet = _context.Set<Entity>();
         }
-        
+
         public DbSet<Entity> Query()
         {
             return _dbSet;
@@ -31,7 +31,7 @@ namespace HotelReservationSystem.Data.Repositories{
             var local = _dbSet.Local.FindEntry(entity.ID) ?? _dbSet.Entry(entity);
             EntityEntry entry = null;
 
-            if(local is null)
+            if (local is null)
             {
                 entry = _context.Entry(entity);
             }
@@ -43,7 +43,7 @@ namespace HotelReservationSystem.Data.Repositories{
 
             foreach (var property in entry.Properties)
             {
-                if(properties.Contains(property.Metadata.Name) && !immutableProps.Contains(property.Metadata.Name))
+                if (properties.Contains(property.Metadata.Name) && !immutableProps.Contains(property.Metadata.Name))
                 {
                     property.CurrentValue = entity.GetType().GetProperty(property.Metadata.Name).GetValue(entity);
                     property.IsModified = true;
@@ -73,7 +73,7 @@ namespace HotelReservationSystem.Data.Repositories{
 
         public IQueryable<Entity> GetAll()
         {
-            return _dbSet.Where(x => ! x.Deleted);
+            return _dbSet.Where(x => !x.Deleted);
         }
 
         public IQueryable<Entity> GetAllWithDeleted()

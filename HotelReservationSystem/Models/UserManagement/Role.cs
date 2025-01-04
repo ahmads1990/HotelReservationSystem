@@ -1,6 +1,4 @@
-﻿using HotelReservationSystem.Models;
-
-namespace HotelReservationSystem.Models.UserManagement
+﻿namespace HotelReservationSystem.Models.UserManagement
 {
     public class Role : BaseModel
     {

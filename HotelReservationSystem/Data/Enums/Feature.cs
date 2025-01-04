@@ -1,6 +1,4 @@
-﻿using HotelReservationSystem.Models.UserManagement;
-
-namespace HotelReservationSystem.Data.Enums
+﻿namespace HotelReservationSystem.Data.Enums
 {
     public enum Feature
     {
@@ -19,13 +17,13 @@ namespace HotelReservationSystem.Data.Enums
         UpdateReservation,
         DeleteReservation,
         GetAllReservationsHistory,
-        GetUsers ,
-        AddUser ,
+        GetUsers,
+        AddUser,
         UpdateUser,
         DeleteUser,
         GetAllUsers,
-        
-        
-        
+
+
+
     }
 }

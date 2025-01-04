@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace HotelReservationSystem.Models.UserManagement;
 
 public class User : BaseModel

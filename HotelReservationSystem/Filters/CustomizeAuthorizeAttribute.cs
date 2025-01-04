@@ -1,16 +1,14 @@
-﻿using Azure.Core;
+﻿using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.UserManagement.UserFeatures.Queries;
-using HotelReservationSystem.Data.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 
 namespace HotelReservationSystem.Filters
 {
     public class CustomizeAuthorizeAttribute : ActionFilterAttribute
     {
-        
+
         Feature _feature;
         IMediator _mediator;
 
@@ -20,7 +18,7 @@ namespace HotelReservationSystem.Filters
             _mediator = mediator;
         }
 
-        
+
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var claims = context.HttpContext.User;

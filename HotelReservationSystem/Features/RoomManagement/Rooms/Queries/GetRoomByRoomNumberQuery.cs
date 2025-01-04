@@ -1,5 +1,4 @@
 ﻿using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
@@ -29,7 +28,7 @@ public class GetRoomByRoomNumberQueryHandler : IRequestHandler<GetRoomByRoomNumb
             return new FailureResponseViewModel<Room>(ErrorCode.RoomNotFound, "add room first");
         }
 
-        return  new SuccessResponseViewModel<Room>(room);
+        return new SuccessResponseViewModel<Room>(room);
     }
-    
+
 }

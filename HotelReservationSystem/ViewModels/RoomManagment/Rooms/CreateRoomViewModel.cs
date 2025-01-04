@@ -1,9 +1,4 @@
-﻿using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
+﻿namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {
     public class CreateRoomViewModel
     {

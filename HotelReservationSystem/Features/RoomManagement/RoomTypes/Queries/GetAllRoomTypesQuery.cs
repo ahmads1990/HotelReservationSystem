@@ -1,5 +1,4 @@
 ﻿using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
@@ -29,6 +28,6 @@ public class GetAllRoomTypesQueryHandler : IRequestHandler<GetAllRoomTypesQuery,
             return new FailureResponseViewModel<IEnumerable<RoomType>>(ErrorCode.UserNotFound, "add room first");
         }
 
-        return  new SuccessResponseViewModel<IEnumerable<RoomType>>(roomType);
+        return new SuccessResponseViewModel<IEnumerable<RoomType>>(roomType);
     }
 }

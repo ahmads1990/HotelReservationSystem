@@ -1,7 +1,4 @@
-using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Models;
-using HotelReservationSystem.ViewModels.Users;
 using MediatR;
 
 namespace HotelReservationSystem.Features.UserManagement.Users.Queries;
@@ -20,7 +17,7 @@ public class UserLogInQueryHandler : IRequestHandler<UserLogInQuery, (int, bool)
     public async Task<(int, bool)> Handle(UserLogInQuery request, CancellationToken cancellationToken)
     {
         var userData = await _repository.LogInUser(request.email, request.password);
-        
+
         return userData;
     }
 }

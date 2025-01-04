@@ -1,11 +1,17 @@
 using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
+using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels;
 using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
 using HotelReservationSystem.ViewModels.RoomManagment.RTypes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace HotelReservationSystem.Controllers
 {
@@ -23,7 +29,8 @@ namespace HotelReservationSystem.Controllers
         [HttpPost()]
         public async Task<ResponseViewModel<bool>> Add(CreateRoomTypeViewModel viewModel)
         {
-            var response = await _mediator.Send(new AddRoomTypeCommand(viewModel.Name, viewModel.Price));
+            var command = viewModel.Map<AddRoomTypeCommand>();
+            var response = await _mediator.Send(command);
 
             return response;
         }
@@ -49,7 +56,7 @@ namespace HotelReservationSystem.Controllers
         {
             var response = await _mediator.Send(new GetAllRoomTypeQuery());
             return response;
-
+        }
         
         [HttpPut]
         [Authorize]

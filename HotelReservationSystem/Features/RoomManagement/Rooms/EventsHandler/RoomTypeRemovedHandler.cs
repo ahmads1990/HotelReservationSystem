@@ -4,10 +4,10 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.EventsHandler;
 
-public class RoomTypeRemovedHandler: INotificationHandler<RoomTypeRemoved>
+public class RoomTypeRemovedHandler : INotificationHandler<RoomTypeRemoved>
 {
     IMediator _mediator;
-    public RoomTypeRemovedHandler(IMediator mediator) 
+    public RoomTypeRemovedHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -15,4 +15,4 @@ public class RoomTypeRemovedHandler: INotificationHandler<RoomTypeRemoved>
     {
         return _mediator.Send(new UpdateRoomWhenTypeChangedCommand(notification.typeID));
     }
-}  
+}

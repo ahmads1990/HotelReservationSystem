@@ -5,11 +5,10 @@ using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(string TypeName, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(string Name, string Description, double Price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
@@ -37,9 +36,9 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
             int.TryParse(userIdClaim, out int userId);
             _repository.Add(new RoomType
             {
-                RoomTypeName = request.TypeName,
-                Price = request.price,
-                Description = "iyeoeeyr",
+                Name = request.Name,
+                Price = request.Price,
+                Description = request.Description,
                 CreatedBy = userId
             });
 
@@ -49,19 +48,19 @@ namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
         {
-            if(request.TypeName==null)
+            if (request.Name == null)
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
             }
 
-            if (request.price <= 0)
+            if (request.Price <= 0)
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
             }
 
-            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.TypeName));
-             
-            if(roomtypeExists)
+            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.Name));
+
+            if (roomtypeExists)
             {
                 return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
             }

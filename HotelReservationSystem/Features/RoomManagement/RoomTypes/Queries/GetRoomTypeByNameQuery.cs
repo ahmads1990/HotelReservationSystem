@@ -1,5 +1,4 @@
-﻿using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Data.Repositories;
+﻿using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
@@ -22,7 +21,7 @@ public class GetRoomTypeByNameQueryHandler : IRequestHandler<GetRoomTypeByNameQu
 
     public async Task<ResponseViewModel<RoomType>> Handle(GetRoomTypeByNameQuery request, CancellationToken cancellationToken)
     {
-        var roomType = await _repository.Get(rt => rt.RoomTypeName == request.typeName).FirstOrDefaultAsync();
+        var roomType = await _repository.Get(rt => rt.Name == request.typeName).FirstOrDefaultAsync();
 
         if (roomType == null)
         {

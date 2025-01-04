@@ -1,7 +1,5 @@
-using System.Windows.Input;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Models.UserManagement;
 using MediatR;
 
 namespace HotelReservationSystem.Features.UserManagement.UserFeatures.Commands;
@@ -18,7 +16,7 @@ public class AddUserFeatureCommandHandler : IRequestHandler<AddUserFeatureComman
 
     public Task<bool> Handle(AddUserFeatureCommand request, CancellationToken cancellationToken)
     {
-        _repository.Add(new Models.UserManagement.UserFeature { Feature = request.feature});
+        _repository.Add(new Models.UserManagement.UserFeature { Feature = request.feature });
         _repository.SaveChanges();
 
         return Task.FromResult(true);

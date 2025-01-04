@@ -1,11 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Helpers
 {
@@ -25,7 +21,7 @@ namespace HotelReservationSystem.Helpers
             var audience = _configuration["JwtSettings:Audience"];
 
             var tokenHandler = new JwtSecurityTokenHandler();
-             
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
