@@ -1,15 +1,10 @@
-﻿using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+﻿using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
@@ -20,7 +15,7 @@ public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoo
     private readonly IRepository<Room> _repository;
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
-   
+
     public UpdateRoomWhenTypeChangedCommandHandler(IRepository<Room> repository,
         IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
@@ -35,7 +30,7 @@ public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoo
 
         if (!response.IsSuccess)
             return response;
-        
+
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdClaim == null)
         {
@@ -46,15 +41,15 @@ public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoo
             };
         }
         var userId = int.Parse(userIdClaim);
-        
-        
+
+
         var rowsAffected = await _repository.Query().Where(r => r.RoomTypeID == request.typeID).ExecuteUpdateAsync(
                 r => r
                     .SetProperty(r => r.RoomTypeID, _ => 0)
                     .SetProperty(r => r.UpdatedBy, _ => userId)
                     .SetProperty(r => r.UpdatedDate, _ => DateTime.UtcNow),
                 cancellationToken);
-  
+
         if (rowsAffected == 0)
         {
             return new ResponseViewModel<bool>
@@ -69,12 +64,12 @@ public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoo
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomWhenTypeChangedCommand request)
     {
-        
+
         if (request == default)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "room ID is required");
         }
-        
+
         return new SuccessResponseViewModel<bool>(true);
     }
 }

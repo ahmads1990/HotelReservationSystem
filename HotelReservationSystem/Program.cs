@@ -1,17 +1,13 @@
 
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Configrations;
-using HotelReservationSystem.Helpers;
-using HotelReservationSystem.Data.Repositories;
 using MediatR;
-using System.Text;
-using Autofac.Extensions.DependencyInjection;
-using Autofac;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Autofac.Core;
-using HotelReservationSystem.Data;
+using System.Text;
 
 namespace HotelReservationSystem
 {

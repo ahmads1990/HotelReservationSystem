@@ -1,6 +1,5 @@
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 using HotelReservationSystem.Filters;
@@ -10,7 +9,6 @@ using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
 using HotelReservationSystem.ViewModels.RoomManagment.RTypes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationSystem.Controllers
@@ -50,7 +48,7 @@ namespace HotelReservationSystem.Controllers
             var types = await _mediator.Send(new GetAllRoomTypesQuery());
             return types;
         }
-        
+
         [HttpPut]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoomType })]
@@ -61,4 +59,3 @@ namespace HotelReservationSystem.Controllers
         }
     }
 }
- 

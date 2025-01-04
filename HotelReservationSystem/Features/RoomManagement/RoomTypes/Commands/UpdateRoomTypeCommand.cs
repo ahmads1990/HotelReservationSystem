@@ -5,9 +5,7 @@ using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
@@ -51,7 +49,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomTypeCommand request)
     {
-        if (request.Name==null)
+        if (request.Name == null)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
         }

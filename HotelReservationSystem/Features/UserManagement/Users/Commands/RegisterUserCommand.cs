@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.UserManagement;
 using MediatR;
@@ -18,11 +17,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, b
     public Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         _repository.Add(new User
-        { PhoneNo= request.phoneNo,
-          Name = request.name,
-          UserName=request.userName,
-          Email=request.email,
-          Password=request.password
+        {
+            PhoneNo = request.phoneNo,
+            Name = request.name,
+            UserName = request.userName,
+            Email = request.email,
+            Password = request.password
         });
         _repository.SaveChanges();
 

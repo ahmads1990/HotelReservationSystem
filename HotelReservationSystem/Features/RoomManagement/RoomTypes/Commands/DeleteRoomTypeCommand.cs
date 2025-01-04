@@ -6,7 +6,6 @@ using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
@@ -37,26 +36,26 @@ public class DeleteRoomTypeCommandHandler : IRequestHandler<DeleteRoomTypeComman
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         deletedRoomType.UpdatedBy = int.Parse(userIdClaim);
         deletedRoomType.Deleted = true;
-        
+
         _repository.SaveInclude(deletedRoomType,
                 nameof(RoomType.Deleted),
                 nameof(RoomType.UpdatedBy)
         );
 
         _repository.SaveChanges();
-        
+
         await _mediator.Publish(new RoomTypeRemoved(deletedRoomType.ID));
         return response;
     }
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(DeleteRoomTypeCommand request)
     {
-        if (request.typeName==null)
+        if (request.typeName == null)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
         }
 
-       var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.typeName));
+        var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.typeName));
 
         if (!roomtypeExists)
         {

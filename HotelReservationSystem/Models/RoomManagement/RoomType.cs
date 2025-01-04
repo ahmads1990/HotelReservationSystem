@@ -7,7 +7,7 @@
         public string Description { get; set; } = string.Empty;
 
         public ICollection<Room> Rooms { get; set; } = default!;
-        public ICollection<RoomTypeFacility> RoomTypeFacilities { get; set; }  = new List<RoomTypeFacility>();
-        
+        public ICollection<RoomTypeFacility> RoomTypeFacilities { get; set; } = new List<RoomTypeFacility>();
+
     }
 }

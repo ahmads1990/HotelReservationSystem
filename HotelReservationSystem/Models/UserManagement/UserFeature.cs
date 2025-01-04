@@ -1,5 +1,4 @@
 ﻿using HotelReservationSystem.Data.Enums;
-using System.Collections.Generic;
 
 namespace HotelReservationSystem.Models.UserManagement
 {

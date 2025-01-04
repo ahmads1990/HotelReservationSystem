@@ -28,6 +28,6 @@ public class GetAllRoomsQueryHandler : IRequestHandler<GetAllRoomsQuery, Respons
             return new FailureResponseViewModel<IEnumerable<Room>>(ErrorCode.UserNotFound, "add room first");
         }
 
-        return  new SuccessResponseViewModel<IEnumerable<Room>>(rooms);
+        return new SuccessResponseViewModel<IEnumerable<Room>>(rooms);
     }
 }

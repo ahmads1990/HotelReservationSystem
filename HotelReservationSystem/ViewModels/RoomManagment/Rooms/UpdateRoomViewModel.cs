@@ -1,6 +1,4 @@
-﻿using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
+﻿using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {

@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using HotelReservationSystem.Models;
+﻿using HotelReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace HotelReservationSystem.Data.Repositories
 {

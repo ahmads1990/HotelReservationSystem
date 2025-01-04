@@ -3,14 +3,13 @@
 using Autofac;
 using HotelReservationSystem.Data;
 using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System;
-using HotelReservationSystem.Helpers;
 
 namespace HotelReservationSystem.Configrations;
 
-public class AutoFacModule: Module
+public class AutoFacModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
@@ -22,9 +21,9 @@ public class AutoFacModule: Module
             optionsBuilder
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 sqlOptions => sqlOptions.MigrationsAssembly(typeof(Context).Assembly.FullName))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking) 
-                .LogTo(log => Debug.WriteLine(log), LogLevel.Information) 
-                .EnableSensitiveDataLogging(); 
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+                .EnableSensitiveDataLogging();
 
             return new Context(optionsBuilder.Options);
         }).AsSelf().InstancePerLifetimeScope();

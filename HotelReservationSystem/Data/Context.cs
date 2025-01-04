@@ -1,11 +1,7 @@
-﻿using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Models.OfferManagement;
+﻿using HotelReservationSystem.Models.OfferManagement;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace HotelReservationSystem.Data;
 
@@ -15,7 +11,7 @@ public class Context : DbContext
 
     public Context(DbContextOptions<Context> options) : base(options)
     {
-        
+
     }
 
     // Users Management
