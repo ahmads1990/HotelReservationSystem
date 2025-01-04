@@ -1,18 +1,15 @@
-using System.Reflection.Emit;
-using System.Security.Claims;
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.RoomManagment.Rooms;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HotelReservationSystem.Controllers
 {
@@ -58,7 +55,7 @@ namespace HotelReservationSystem.Controllers
             var types = await _mediator.Send(new DeleteRoomCommand(roomNumber));
             return types;
         }
-        
+
         [HttpGet]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetAllRooms })]
@@ -67,7 +64,7 @@ namespace HotelReservationSystem.Controllers
             var rooms = await _mediator.Send(new GetAllRoomsQuery());
             return rooms;
         }
-        
+
         [HttpGet]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetRoomByRoomNumber })]
@@ -76,7 +73,7 @@ namespace HotelReservationSystem.Controllers
             var room = await _mediator.Send(new GetRoomByRoomNumberQuery(roomNumber));
             return room;
         }
-        
+
         [HttpGet]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.GetAvailableRooms })]
@@ -85,7 +82,6 @@ namespace HotelReservationSystem.Controllers
             var rooms = await _mediator.Send(new GetAvailableRoomsQuery());
             return rooms;
         }
-        
+
     }
 }
- 

@@ -1,25 +1,22 @@
 ﻿using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using HotelReservationSystem.Data.Enums;
-using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
-public record UpdateRoomCommand(int ID, string roomNumber, string description, bool isAvailable,int roomTypeID, int[] customFacilities) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomCommand(int ID, string roomNumber, string description, bool isAvailable, int roomTypeID, int[] customFacilities) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, ResponseViewModel<bool>>
 {
     private readonly IRepository<Room> _repository;
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
-   
+
     public UpdateRoomCommandHandler(IRepository<Room> repository,
         IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
@@ -34,7 +31,7 @@ public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, Respo
 
         if (!response.IsSuccess)
             return response;
-        
+
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdClaim == null)
         {
@@ -64,7 +61,7 @@ public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, Respo
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomCommand request)
     {
-        
+
         if (request.ID == default)
         {
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "room ID is required");
@@ -78,9 +75,9 @@ public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, Respo
         {
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Description is required");
         }
-        
 
-       var roomExists = await _mediator.Send(new IsRoomExistsQuery(request.roomNumber));
+
+        var roomExists = await _mediator.Send(new IsRoomExistsQuery(request.roomNumber));
 
         if (roomExists)
         {
