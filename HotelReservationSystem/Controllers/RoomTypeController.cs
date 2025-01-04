@@ -1,7 +1,9 @@
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
@@ -46,6 +48,15 @@ namespace HotelReservationSystem.Controllers
         public async Task<ResponseViewModel<IEnumerable<RoomType>>> GetAllRoomTypes()
         {
             var types = await _mediator.Send(new GetAllRoomTypesQuery());
+            return types;
+        }
+        
+        [HttpPut]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoomType })]
+        public async Task<ResponseViewModel<bool>> DeleteRoomType(string roomNumber)
+        {
+            var types = await _mediator.Send(new DeleteRoomTypeCommand(roomNumber));
             return types;
         }
     }

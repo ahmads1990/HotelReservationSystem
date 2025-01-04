@@ -8,7 +8,7 @@ using HotelReservationSystem.ViewModels.Responses;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomCommand(string RoomNumber, string Description, bool IsAvailable, int RoomTypeID, int CreatedBy) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string RoomNumber, string Description, bool IsAvailable, int RoomTypeID, int CreatedBy, List<int> customFacilities) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
     {
@@ -35,6 +35,9 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
                 IsAvailable = request.IsAvailable,
                 RoomTypeID = request.RoomTypeID,
                 CreatedBy = request.CreatedBy,
+                RoomFacilities = request.customFacilities
+                    .Select(facilityId => new RoomFacility { FacilityID = facilityId })
+                    .ToList()
             });
             _repository.SaveChanges();
             return response;

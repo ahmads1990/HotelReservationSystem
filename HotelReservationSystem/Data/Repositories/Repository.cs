@@ -15,7 +15,11 @@ namespace HotelReservationSystem.Data.Repositories{
             _context = context;
             _dbSet = _context.Set<Entity>();
         }
-
+        
+        public DbSet<Entity> Query()
+        {
+            return _dbSet;
+        }
         public void Add(Entity entity)
         {
             entity.CreatedDate = DateTime.Now;
@@ -24,8 +28,7 @@ namespace HotelReservationSystem.Data.Repositories{
 
         public void SaveInclude(Entity entity, params string[] properties)
         {
-            var local = _dbSet.Local.FirstOrDefault(x => x.ID == entity.ID);
-
+            var local = _dbSet.Local.FindEntry(entity.ID) ?? _dbSet.Entry(entity);
             EntityEntry entry = null;
 
             if(local is null)

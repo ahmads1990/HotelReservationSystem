@@ -1,9 +1,12 @@
 ﻿using System.Linq.Expressions;
+using HotelReservationSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Data.Repositories
 {
-    public interface IRepository<Entity>
+    public interface IRepository<Entity> where Entity : BaseModel
     {
+        DbSet<Entity> Query();
         void Add(Entity entity);
         void SaveInclude(Entity entity, params string[] properties);
         void Delete(Entity entity);
