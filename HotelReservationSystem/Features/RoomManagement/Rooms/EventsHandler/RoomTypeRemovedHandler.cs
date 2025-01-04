@@ -13,6 +13,6 @@ public class RoomTypeRemovedHandler: INotificationHandler<RoomTypeRemoved>
     }
     public Task Handle(RoomTypeRemoved notification, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new UpdateRoomWhenTypeChangedCommand(notification.typeName));
+        return _mediator.Send(new UpdateRoomWhenTypeChangedCommand(notification.typeID));
     }
 }  

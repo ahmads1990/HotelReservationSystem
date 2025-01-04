@@ -11,7 +11,7 @@ using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
-public record UpdateRoomTypeCommand(int ID, RoomTypeName Name, double Price, string Description) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomTypeCommand(int ID, string roomTypeName, double Price, string Description) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeCommand, ResponseViewModel<bool>>
 {
@@ -51,7 +51,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
 
     private async Task<ResponseViewModel<bool>> ValidateRequest(UpdateRoomTypeCommand request)
     {
-        if (request.Name==null)
+        if (string.IsNullOrEmpty(request.roomTypeName))
         {
             return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
         }
@@ -66,7 +66,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
             return new FailureResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
         }
 
-       var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsByIdNameQuery(request.ID, request.Name));
+       var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsByIdNameQuery(request.ID, request.roomTypeName));
 
         if (roomtypeExists.Data)
         {

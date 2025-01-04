@@ -4,7 +4,6 @@ namespace HotelReservationSystem.Models.ReservationManagement;
 
 public class ReservationRoom : BaseModel
 {
-    public int ReservationID { get; set; }
     public Reservation Reservation { get; set; }
     public int RoomID { get; set; }
     public Room Room { get; set; }

@@ -53,7 +53,7 @@ namespace HotelReservationSystem.Controllers
         [HttpPut]
         [Authorize]
         [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoomType })]
-        public async Task<ResponseViewModel<bool>> DeleteRoomType(RoomTypeName roomNumber)
+        public async Task<ResponseViewModel<bool>> DeleteRoomType(string roomNumber)
         {
             var types = await _mediator.Send(new DeleteRoomTypeCommand(roomNumber));
             return types;
