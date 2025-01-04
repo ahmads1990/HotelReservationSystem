@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record GetRoomTypeByNameQuery(int ID, RoomTypeName typeName) : IRequest<ResponseViewModel<RoomType>>;
+public record GetRoomTypeByNameQuery(int ID, string typeName) : IRequest<ResponseViewModel<RoomType>>;
 
 
 public class GetRoomTypeByNameQueryHandler : IRequestHandler<GetRoomTypeByNameQuery, ResponseViewModel<RoomType>>
@@ -22,7 +22,7 @@ public class GetRoomTypeByNameQueryHandler : IRequestHandler<GetRoomTypeByNameQu
 
     public async Task<ResponseViewModel<RoomType>> Handle(GetRoomTypeByNameQuery request, CancellationToken cancellationToken)
     {
-        var roomType = await _repository.Get(rt => rt.RoomTypeName == request.typeName).FirstOrDefaultAsync();
+        var roomType = await _repository.Get(rt => rt.Name == request.typeName).FirstOrDefaultAsync();
 
         if (roomType == null)
         {

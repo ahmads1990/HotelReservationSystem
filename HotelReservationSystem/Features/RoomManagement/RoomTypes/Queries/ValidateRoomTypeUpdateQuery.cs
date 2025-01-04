@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record ValidateRoomTypeUpdateQuery(int ID, RoomTypeName typeName) : IRequest<ResponseViewModel<ValidateRoomTypeUpdate>>;
+public record ValidateRoomTypeUpdateQuery(int ID, string typeName) : IRequest<ResponseViewModel<ValidateRoomTypeUpdate>>;
 
 public class ValidateRoomTypeUpdate
 {
@@ -32,7 +32,7 @@ public class CheckRoomTypeExistsByNameQueryHandler : IRequestHandler<ValidateRoo
                  .Select(g => new ValidateRoomTypeUpdate
                  {
                      ExistsById = g.Any(r => r.ID == request.ID), // True if ID exists
-                     NameIsUnique = !g.Any(r => r.ID != request.ID && r.RoomTypeName == request.typeName) // True if name is unique
+                     NameIsUnique = !g.Any(r => r.ID != request.ID && r.Name == request.typeName) // True if name is unique
                  })
                  .FirstOrDefaultAsync();
 

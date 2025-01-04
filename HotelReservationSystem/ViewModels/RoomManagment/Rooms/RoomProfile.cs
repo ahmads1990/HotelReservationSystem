@@ -10,17 +10,9 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
         public RoomProfile()
         {
             CreateMap<Room, RoomViewModel>()
-                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.RoomTypeName))
+                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.Name))
                 .ForMember(dest => dest.Facilities, opt => opt.MapFrom(src => src.RoomFacilities));
 
-            //CreateMap<Room, RoomViewModel>()
-            //.ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.Name))
-            //.ForMember(dest => dest.Facilities, opt => opt.MapFrom(src =>
-            //    src.RoomType.RoomTypeFacilities.Select(rtf => rtf.RoomFacility)
-            //    .Concat(src.RoomFacilityAssignments.Select(rfa => rfa.RoomFacility))
-            //    .GroupBy(f => f.Name)
-            //    .Select(group => group.First())
-            //    .ToList()));
             CreateMap<CreateRoomViewModel, AddRoomCommand>()
                 .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

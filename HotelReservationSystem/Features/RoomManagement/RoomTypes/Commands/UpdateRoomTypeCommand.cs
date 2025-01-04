@@ -11,7 +11,7 @@ using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
-public record UpdateRoomTypeCommand(int ID, RoomTypeName Name, double Price, string Description) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomTypeCommand(int ID, string Name, double Price, string Description) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeCommand, ResponseViewModel<bool>>
 {
@@ -39,7 +39,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
         updatedRoomType.UpdatedBy = int.Parse(userIdClaim);
 
         _repository.SaveInclude(updatedRoomType,
-                nameof(RoomType.RoomTypeName),
+                nameof(RoomType.Name),
                          nameof(RoomType.Price),
                          nameof(RoomType.Description)
         );
