@@ -1,7 +1,4 @@
 using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.ViewModels;
 using HotelReservationSystem.ViewModels.Responses;
@@ -46,11 +43,22 @@ namespace HotelReservationSystem.Controllers
             var types = await _mediator.Send(new GetAllRoomTypesQuery());
             return types;
         }
+        
         [HttpGet("GetAllRoomsType")]
         public async Task<ResponseDTO> GetAllRoomsType()
         {
             var response = await _mediator.Send(new GetAllRoomTypeQuery());
             return response;
+
+        
+        [HttpPut]
+        [Authorize]
+        [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.DeleteRoomType })]
+        public async Task<ResponseViewModel<bool>> DeleteRoomType(string roomNumber)
+        {
+            var types = await _mediator.Send(new DeleteRoomTypeCommand(roomNumber));
+            return types;
+
         }
     }
 }

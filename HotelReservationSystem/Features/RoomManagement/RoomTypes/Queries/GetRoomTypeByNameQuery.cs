@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record GetRoomTypeByNameQuery(int ID, RoomTypeName typeName) : IRequest<ResponseViewModel<RoomType>>;
+public record GetRoomTypeByNameQuery(int ID, string typeName) : IRequest<ResponseViewModel<RoomType>>;
 
 
 public class GetRoomTypeByNameQueryHandler : IRequestHandler<GetRoomTypeByNameQuery, ResponseViewModel<RoomType>>

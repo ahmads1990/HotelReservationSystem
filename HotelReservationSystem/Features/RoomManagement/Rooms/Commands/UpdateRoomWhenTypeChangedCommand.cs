@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 
-public record UpdateRoomWhenTypeChangedCommand(RoomTypeName typeName) : IRequest<ResponseViewModel<bool>>;
+public record UpdateRoomWhenTypeChangedCommand(int typeID) : IRequest<ResponseViewModel<bool>>;
 
 public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoomWhenTypeChangedCommand, ResponseViewModel<bool>>
 {
@@ -46,26 +47,22 @@ public class UpdateRoomWhenTypeChangedCommandHandler : IRequestHandler<UpdateRoo
         }
         var userId = int.Parse(userIdClaim);
         
-        var defaultRoomType = RoomTypeName.Single;
-
         
-        // var rowsAffected = await _repository
-        //     .Where(r => r.RoomTypeID == (int)targetRoomType)
-        //     .ExecuteUpdateAsync(
-        //         r => r
-        //             .SetProperty(r => r.RoomTypeID, _ => (int)defaultRoomType)
-        //             .SetProperty(r => r.UpdatedBy, _ => userId)
-        //             .SetProperty(r => r.UpdatedAt, _ => DateTime.UtcNow),
-        //         cancellationToken);
-
-        // if (rowsAffected == 0)
-        // {
-        //     return new ResponseViewModel<bool>
-        //     {
-        //         IsSuccess = false,
-        //         Message = "No rooms were updated. Ensure the specified room type exists."
-        //     };
-        // }
+        var rowsAffected = await _repository.Query().Where(r => r.RoomTypeID == request.typeID).ExecuteUpdateAsync(
+                r => r
+                    .SetProperty(r => r.RoomTypeID, _ => 0)
+                    .SetProperty(r => r.UpdatedBy, _ => userId)
+                    .SetProperty(r => r.UpdatedDate, _ => DateTime.UtcNow),
+                cancellationToken);
+  
+        if (rowsAffected == 0)
+        {
+            return new ResponseViewModel<bool>
+            {
+                IsSuccess = false,
+                Message = "No rooms were updated. Ensure the specified room type exists."
+            };
+        }
 
         return response;
     }

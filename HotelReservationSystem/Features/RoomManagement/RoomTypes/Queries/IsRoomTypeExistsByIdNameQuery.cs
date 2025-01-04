@@ -6,7 +6,7 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 
-public record IsRoomTypeExistsByIdNameQuery(int ID, RoomTypeName typeName) : IRequest<ResponseViewModel<bool>>;
+public record IsRoomTypeExistsByIdNameQuery(int ID, string typeName) : IRequest<ResponseViewModel<bool>>;
 
 
 public class IsRoomTypeExistsByIdNameQueryHandler : IRequestHandler<IsRoomTypeExistsByIdNameQuery, ResponseViewModel<bool>>

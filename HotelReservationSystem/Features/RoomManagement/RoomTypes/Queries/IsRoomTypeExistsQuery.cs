@@ -5,7 +5,7 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries
 {
-    public record IsRoomTypeExistsQuery(RoomTypeName typename) : IRequest<bool>;
+    public record IsRoomTypeExistsQuery(string typename) : IRequest<bool>;
 
     public class IsRoomTypeExistsQueryHandler : IRequestHandler<IsRoomTypeExistsQuery, bool>
     {

@@ -1,3 +1,4 @@
+using HotelReservationSystem.Features.RoomManagement.Rooms.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes;
 using MediatR;
 
@@ -10,13 +11,8 @@ public class RoomTypeRemovedHandler: INotificationHandler<RoomTypeRemoved>
     {
         _mediator = mediator;
     }
-
-//     public Task Handle(RoomTypeRemoved notification, CancellationToken cancellationToken)
-//     {
-//         // await _mediator.Send(new RemoveExamsByInstructorIDCommand(request.id));
-//     }
     public Task Handle(RoomTypeRemoved notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return _mediator.Send(new UpdateRoomWhenTypeChangedCommand(notification.typeID));
     }
-}
+}  

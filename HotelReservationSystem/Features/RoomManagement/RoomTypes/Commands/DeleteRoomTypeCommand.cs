@@ -10,7 +10,7 @@ using HotelReservationSystem.Data.Enums;
 
 namespace HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 
-public record DeleteRoomTypeCommand(RoomTypeName typeName) : IRequest<ResponseViewModel<bool>>;
+public record DeleteRoomTypeCommand(string typeName) : IRequest<ResponseViewModel<bool>>;
 
 public class DeleteRoomTypeCommandHandler : IRequestHandler<DeleteRoomTypeCommand, ResponseViewModel<bool>>
 {
@@ -44,7 +44,8 @@ public class DeleteRoomTypeCommandHandler : IRequestHandler<DeleteRoomTypeComman
         );
 
         _repository.SaveChanges();
-        await _mediator.Publish(new RoomTypeRemoved(request.typeName));
+        
+        await _mediator.Publish(new RoomTypeRemoved(deletedRoomType.ID));
         return response;
     }
 
