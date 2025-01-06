@@ -8,6 +8,6 @@ namespace HotelReservationSystem.ViewModels.Reservations;
 public class ReservationCreateViewModel
 {
     public string SpecialRequests { get; set; }
-    public decimal TotalAmount { get; set; }
+    public double TotalAmount { get; set; }
     public List<ReservationRoomCreateViewModel> Guests { get; set; }
 }

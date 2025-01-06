@@ -34,7 +34,7 @@ namespace HotelReservationSystem.Controllers
         [HttpPost()]
         public async Task<ResponseViewModel<bool>> Add(ReservationCreateViewModel viewModel)
         {
-            var command = viewModel.Map<ReservationCreateViewModel>();
+            var command = viewModel.Map<ReservationCreateCommand>();
             var response = await _mediator.Send(command);
  
             return response;

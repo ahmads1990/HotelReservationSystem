@@ -22,6 +22,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.3.0" />
     <PackageReference Include="Otp.NET" Version="1.4.0" />
+    <PackageReference Include="PredicateExtensions" Version="1.0.0" />
     <PackageReference Include="RabbitMQ.Client" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
@@ -31,7 +32,6 @@
     <Folder Include="DTOs\RoomManagement\Facilities\" />
     <Folder Include="DTOs\RoomManagement\RoomTypes\" />
     <Folder Include="Features\PaymentManagement\" />
-    <Folder Include="Features\ReservationManagement\Commands\" />
   </ItemGroup>
 
 </Project>

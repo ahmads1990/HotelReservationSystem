@@ -24,7 +24,7 @@ public class GetAvailableRoomsQueryHandler : IRequestHandler<GetAvailableRoomsQu
     public async Task<IEnumerable<AvailableRoomDTO>> Handle(GetAvailableRoomsQuery request, CancellationToken cancellationToken)
     {
         var rooms = await _mediator.Send(new GetRoomByTypeOrPriceQuery(request.roomTypeID, request.fromAmount, request.toAmount));
-        return rooms.Map<AvailableRoomDTO>();
+        return rooms.Map<IEnumerable<AvailableRoomDTO>>();
         // Get All Rooms that have NO reservation in the date range
     }
 }

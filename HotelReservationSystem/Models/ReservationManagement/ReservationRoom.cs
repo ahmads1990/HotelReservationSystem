@@ -11,7 +11,7 @@ public class ReservationRoom : BaseModel
     public Room Room { get; set; }
     public DateTime CheckInDate { get; set; }
     public DateTime CheckOutDate { get; set; }
-    public decimal Amount { get; set; }
+    public double Amount { get; set; }
     
     public ICollection<Guest> Guests { get; set; } = new HashSet<Guest>();
 }
