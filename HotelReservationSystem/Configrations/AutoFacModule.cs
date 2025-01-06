@@ -6,6 +6,7 @@ using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using HotelReservationSystem.RabbitMQ;
 
 namespace HotelReservationSystem.Configrations;
 
@@ -17,6 +18,7 @@ public class AutoFacModule : Module
         {
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
             var configuration = context.Resolve<IConfiguration>();
+            
 
             optionsBuilder
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
@@ -39,5 +41,6 @@ public class AutoFacModule : Module
                .InstancePerLifetimeScope();
 
         builder.RegisterType<TokenHelper>().AsSelf().InstancePerLifetimeScope();
+        builder.RegisterType<RabbitMQPuublisherService>().AsSelf().InstancePerLifetimeScope();
     }
 }

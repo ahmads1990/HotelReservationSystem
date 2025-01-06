@@ -7,6 +7,7 @@ using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.RabbitMQ;
 using HotelReservationSystem.ViewModels;
+using HotelReservationSystem.ViewModels.Reservations;
 using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.RoomManagment.RoomTypes;
 using HotelReservationSystem.ViewModels.RoomManagment.RTypes;
@@ -19,22 +20,23 @@ namespace HotelReservationSystem.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class RoomTypeController : ControllerBase
+    public class ReservationController : ControllerBase
     {
         readonly IMediator _mediator;
         RabbitMQPuublisherService _rabbitMqPuublisherService;
-        public RoomTypeController(IMediator mediator, RabbitMQPuublisherService rabbitMqPuublisherService)
+        
+        public ReservationController(IMediator mediator, RabbitMQPuublisherService rabbitMqPuublisherService)
         {
             _mediator = mediator;
             _rabbitMqPuublisherService = rabbitMqPuublisherService;
         }
 
         [HttpPost()]
-        public async Task<ResponseViewModel<bool>> Add(CreateRoomTypeViewModel viewModel)
+        public async Task<ResponseViewModel<bool>> Add(ReservationCreateViewModel viewModel)
         {
-            var command = viewModel.Map<AddRoomTypeCommand>();
+            var command = viewModel.Map<ReservationCreateViewModel>();
             var response = await _mediator.Send(command);
-
+ 
             return response;
         }
 

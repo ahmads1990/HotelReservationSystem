@@ -66,7 +66,7 @@ public class UpdateRoomTypeCommandHandler : IRequestHandler<UpdateRoomTypeComman
 
         var validationResult = await _mediator.Send(new ValidateRoomTypeUpdateQuery(request.ID, request.Name));
 
-        if (!validationResult.Data.ExistsById)
+        if (!validationResult.Data.ExistsById) 
         {
             return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
         }

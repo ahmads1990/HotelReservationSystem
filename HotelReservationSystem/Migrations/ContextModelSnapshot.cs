@@ -248,7 +248,7 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("RoomTypeFacilities");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.Role", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.Role", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -280,7 +280,7 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.RoleFeatures", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.RoleFeatures", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -316,7 +316,7 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("RoleFeatures");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.User", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.User", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -377,7 +377,7 @@ namespace HotelReservationSystem.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.UserFeature", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.UserFeature", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -462,9 +462,9 @@ namespace HotelReservationSystem.Migrations
                     b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.RoleFeatures", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.RoleFeatures", b =>
                 {
-                    b.HasOne("HotelReservationSystem.Models.UserManagement.Role", "Role")
+                    b.HasOne("HotelReservationSystem.Models.Users.Role", "Role")
                         .WithMany("RoleFeatures")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -473,20 +473,20 @@ namespace HotelReservationSystem.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.User", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.User", b =>
                 {
-                    b.HasOne("HotelReservationSystem.Models.UserManagement.Role", "Role")
+                    b.HasOne("HotelReservationSystem.Models.Users.Role", "Role")
                         .WithOne("User")
-                        .HasForeignKey("HotelReservationSystem.Models.UserManagement.User", "RoleID")
+                        .HasForeignKey("HotelReservationSystem.Models.Users.User", "RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.UserFeature", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.UserFeature", b =>
                 {
-                    b.HasOne("HotelReservationSystem.Models.UserManagement.User", "user")
+                    b.HasOne("HotelReservationSystem.Models.Users.User", "user")
                         .WithMany("UserFeatures")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -512,7 +512,7 @@ namespace HotelReservationSystem.Migrations
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.Role", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.Role", b =>
                 {
                     b.Navigation("RoleFeatures");
 
@@ -520,7 +520,7 @@ namespace HotelReservationSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HotelReservationSystem.Models.UserManagement.User", b =>
+            modelBuilder.Entity("HotelReservationSystem.Models.Users.User", b =>
                 {
                     b.Navigation("UserFeatures");
                 });
