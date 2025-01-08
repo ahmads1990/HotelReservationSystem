@@ -26,6 +26,12 @@ namespace HotelReservationSystem.Data.Repositories
             _dbSet.Add(entity);
         }
 
+        public async Task<int> AddAsync(Entity entity)
+        {
+            entity.CreatedDate = DateTime.Now;
+             _dbSet.Add(entity);
+             return entity.ID;
+        }
         public void SaveInclude(Entity entity, params string[] properties)
         {
             var local = _dbSet.Local.FindEntry(entity.ID) ?? _dbSet.Entry(entity);
@@ -95,6 +101,8 @@ namespace HotelReservationSystem.Data.Repositories
         {
             _context.SaveChanges();
         }
+
+        
 
         public async Task<bool> AnyAsync(Expression<Func<Entity, bool>> predicate)
         {

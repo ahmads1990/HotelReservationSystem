@@ -1,4 +1,6 @@
+using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.DTOs;
 using HotelReservationSystem.DTOs.Guests;
 using HotelReservationSystem.DTOs.Reservations;
 using HotelReservationSystem.Models.ReservationManagement;
@@ -10,11 +12,10 @@ public record CreateReservationCommand(
     string RoomNumber,
     DateTime CheckInDate,
     DateTime CheckOutDate,
-    double Amount,
-    List<GuestCreateDTO> Guests
-) : IRequest<ReservationDTO>;
+    double Amount
+) : IRequest<ResponseDTO<int>>;
 
-public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, ReservationDTO>
+public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, ResponseDTO<int>>
 {
     private readonly IMediator _mediator;
     private readonly IRepository<Reservation> _repository;
@@ -25,14 +26,14 @@ public class CreateReservationCommandHandler : IRequestHandler<CreateReservation
         _repository = repository;
     }
 
-    public async Task<ReservationDTO> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseDTO<int>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
     {
-        var reservation = request.Map<Reservation>(request);
+        var reservation = request.Map<Reservation>();
 
-        await _reservationRepository.AddAsync(reservation);
+        var reservationID = await _repository.AddAsync(reservation);
+        _repository.SaveChanges();
 
-        var reservationDto = _mapper.Map<ReservationDTO>(reservation);
+        return new SuccessResponseDTO<int>(reservationID);
 
-        return reservationDto;
     }
 }

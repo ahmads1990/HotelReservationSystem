@@ -1,6 +1,7 @@
 ﻿using HotelReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using HotelReservationSystem.Models.ReservationManagement;
 
 namespace HotelReservationSystem.Data.Repositories
 {
@@ -20,5 +21,6 @@ namespace HotelReservationSystem.Data.Repositories
 
         Task<Entity> GetByIDAsync(int id);
         void SaveChanges();
+        Task<int> AddAsync(Entity entity);
     }
 }

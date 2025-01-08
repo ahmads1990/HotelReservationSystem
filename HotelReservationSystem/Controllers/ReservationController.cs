@@ -1,5 +1,6 @@
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
+using HotelReservationSystem.Features.ReservationManagement.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
@@ -32,12 +33,12 @@ namespace HotelReservationSystem.Controllers
         }
 
         [HttpPost()]
-        public async Task<ResponseViewModel<bool>> Add(ReservationCreateViewModel viewModel)
+        public async Task<ResponseViewModel<int>> Add(ReservationCreateViewModel viewModel)
         {
-            var command = viewModel.Map<ReservationCreateCommand>();
+            var command = viewModel.Map<CreateReservationCommand>();
             var response = await _mediator.Send(command);
  
-            return response;
+            return new  SuccessResponseViewModel<int>(response.Data);
         }
 
         [HttpPut]
