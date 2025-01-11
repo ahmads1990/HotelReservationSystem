@@ -2,7 +2,6 @@ using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries;
-using HotelReservationSystem.Features.RoomManagement.RoomTypes.Queries.GetAllRoom;
 using HotelReservationSystem.Filters;
 using HotelReservationSystem.Models.RoomManagement;
 using HotelReservationSystem.RabbitMQ;
@@ -51,17 +50,10 @@ namespace HotelReservationSystem.Controllers
         public async Task<ResponseViewModel<IEnumerable<RoomType>>> GetAllRoomTypes()
         {
             var types = await _mediator.Send(new GetAllRoomTypesQuery());
+            await _rabbitMqPuublisherService.Publish("message");
             return types;
         }
         
-        [HttpGet("GetAllRoomsType")]
-        public async Task<ResponseDTO> GetAllRoomsType()
-        {
-            var response = await _mediator.Send(new GetAllRoomTypeQuery());
-            
-            await _rabbitMqPuublisherService.Publish("message");
-            return response;
-        }
         
         [HttpPut]
         [Authorize]

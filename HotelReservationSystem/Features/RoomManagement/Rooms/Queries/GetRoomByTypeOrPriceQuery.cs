@@ -38,13 +38,13 @@ public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrP
 
     private Expression<Func<Room, bool>> BuildPredicate(GetRoomByTypeOrPriceQuery request)
     {
-        var predicate = PredicateExtensions.PredicateExtensions.Begin<Room>(true);
+        var predicate = PredicateExtensions.PredicateExtensions.Begin<Room>(false); 
 
         predicate.And(x => !request.roomTypeID.HasValue || x.RoomTypeID == request.roomTypeID.Value);
 
         predicate.And(x => !request.fromAmount.HasValue || x.RoomType.Price >= request.fromAmount.Value);
 
-        predicate.And(x => !request.toAmount.HasValue || x.RoomType.Price >= request.toAmount.Value);
+        predicate.And(x => !request.toAmount.HasValue || x.RoomType.Price <= request.toAmount.Value);
 
         return predicate;
     }

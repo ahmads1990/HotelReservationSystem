@@ -23,7 +23,7 @@ public class GetAllRoomTypesQueryHandler : IRequestHandler<GetAllRoomTypesQuery,
     {
         var roomType = await _repository.GetAll().ToListAsync();
 
-        if (roomType == null)
+        if (!roomType.Any())
         {
             return new FailureResponseViewModel<IEnumerable<RoomType>>(ErrorCode.UserNotFound, "add room first");
         }
