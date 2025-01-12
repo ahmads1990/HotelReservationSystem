@@ -31,8 +31,13 @@
   <ItemGroup>
     <Folder Include="DTOs\RoomManagement\Facilities\" />
     <Folder Include="DTOs\RoomManagement\RoomTypes\" />
-    <Folder Include="Features\GuestManagement\Queries\" />
+    <Folder Include="Features\Common\ReservationRoomManagement\AddReservationRoom\Commands\" />
+    <Folder Include="Features\Common\ReservationRoomManagement\AddReservationRoom\Queries\" />
+    <Folder Include="Features\GuestManagement\AddListOfGuests\Queries\" />
     <Folder Include="Features\PaymentManagement\" />
+    <Folder Include="Features\RoomManagement\Rooms\AddRoom\Queries\" />
+    <Folder Include="ViewModels\Guests\" />
+    <Folder Include="ViewModels\Reservations\" />
   </ItemGroup>
 
 </Project>

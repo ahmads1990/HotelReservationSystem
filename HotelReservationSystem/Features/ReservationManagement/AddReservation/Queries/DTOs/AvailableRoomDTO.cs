@@ -1,6 +1,6 @@
 using HotelReservationSystem.ViewModels.RoomManagment.Facilities;
 
-namespace HotelReservationSystem.DTOs.Reservations;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 
 public class AvailableRoomDTO
 {

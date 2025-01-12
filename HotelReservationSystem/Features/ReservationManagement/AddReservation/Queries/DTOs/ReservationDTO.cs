@@ -1,7 +1,7 @@
 using HotelReservationSystem.Models.GuestManagement;
 using HotelReservationSystem.Models.ReservationManagement;
 
-namespace HotelReservationSystem.DTOs.Reservations;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 
 public class ReservationDTO
 {

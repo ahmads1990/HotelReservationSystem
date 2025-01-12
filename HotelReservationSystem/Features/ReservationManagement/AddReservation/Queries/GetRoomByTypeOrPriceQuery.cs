@@ -1,7 +1,7 @@
-
 using System.Linq.Expressions;
+using HotelReservationSystem.Common;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.DTOs.RoomManagement.Rooms;
+using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 using HotelReservationSystem.Models.RoomManagement;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +10,9 @@ using PredicateExtensions;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
 
-public record GetRoomByTypeOrPriceQuery (int? roomTypeID = null, double? fromAmount = null, double? toAmount = null) : IRequest<IEnumerable<RoomDTO>>;
+public record GetRoomByTypeOrPriceQuery (int? roomTypeID = null, double? fromAmount = null, double? toAmount = null) : IRequest<RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>>;
 
-public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrPriceQuery, IEnumerable<RoomDTO>>
+public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrPriceQuery, RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>>
 {
     IRepository<Room> _repository;
     public GetRoomByTypeOrPriceQueryHandler(IRepository<Room> repository)
@@ -20,12 +20,12 @@ public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrP
         _repository = repository;
     }
 
-    public async Task<IEnumerable<RoomDTO>> Handle(GetRoomByTypeOrPriceQuery request, CancellationToken cancellationToken)
+    public async Task<RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>> Handle(GetRoomByTypeOrPriceQuery request, CancellationToken cancellationToken)
     {
         var predicate = BuildPredicate(request);
 
         var rooms = await _repository.Get(predicate)
-            .Select(x => new RoomDTO
+            .Select(x => new AvailableRoomTypesInPriceRangeDTO
             { 
                 ID = x.ID,
                 RoomTypeID = x.RoomTypeID,
@@ -33,7 +33,7 @@ public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrP
                 BasicPrice = x.RoomType.Price,
             }).ToListAsync();
 
-        return rooms;
+        return  RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>.Success((IEnumerable<AvailableRoomTypesInPriceRangeDTO>)rooms);
     }
 
     private Expression<Func<Room, bool>> BuildPredicate(GetRoomByTypeOrPriceQuery request)

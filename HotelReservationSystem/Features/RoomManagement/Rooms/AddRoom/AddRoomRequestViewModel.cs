@@ -1,6 +1,6 @@
 ﻿namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
 {
-    public class CreateRoomViewModel
+    public class AddRoomRequestViewModel
     {
         public string RoomNumber { get; set; }
         public string Description { get; set; }

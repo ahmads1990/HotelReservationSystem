@@ -1,7 +1,7 @@
 using HotelReservationSystem.Models.GuestManagement;
 using HotelReservationSystem.Models.ReservationManagement;
 
-namespace HotelReservationSystem.ViewModels.Reservations;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation;
 
 public class ReservationViewModel
 {

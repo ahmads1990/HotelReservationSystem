@@ -7,9 +7,9 @@ using MediatR;
 
 namespace HotelReservationSystem.Features.GuestManagement.Commands;
 
-public record AddGuestsCommand(List<GuestCreateDTO> Guests) : IRequest<ResponseDTO<bool>>;
+public record AddListOfGuestsCommand(List<GuestCreateDTO> Guests) : IRequest<ResponseDTO<bool>>;
 
-public class AddGuestsCommandHandler : IRequestHandler<AddGuestsCommand, ResponseDTO<bool>>
+public class AddGuestsCommandHandler : IRequestHandler<AddListOfGuestsCommand, ResponseDTO<bool>>
 {
     private readonly IRepository<Guest> _repository;
     
@@ -18,7 +18,7 @@ public class AddGuestsCommandHandler : IRequestHandler<AddGuestsCommand, Respons
         _repository = repository;
     }
     
-    public async Task<ResponseDTO<bool>> Handle(AddGuestsCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseDTO<bool>> Handle(AddListOfGuestsCommand request, CancellationToken cancellationToken)
     {
         if (request.Guests == null || !request.Guests.Any())
         {

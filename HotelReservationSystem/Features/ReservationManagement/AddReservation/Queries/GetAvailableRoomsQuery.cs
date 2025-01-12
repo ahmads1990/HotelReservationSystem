@@ -1,15 +1,16 @@
 using HotelReservationSystem.AutoMapper;
+using HotelReservationSystem.Common;
 using HotelReservationSystem.Data.Repositories;
-using HotelReservationSystem.DTOs.Reservations;
+using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 using HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
 using HotelReservationSystem.Models.ReservationManagement;
 using MediatR;
 
 namespace HotelReservationSystem.Features.ReservationManagement.Queries;
 
-public record GetAvailableRoomsQuery(int? roomTypeID = null, DateTime? fromDate = null, DateTime? toDate = null, double? fromAmount = null, double? toAmount = null) : IRequest<IEnumerable<AvailableRoomDTO>>;
+public record GetAvailableRoomsQuery(int? roomTypeID = null, DateTime? fromDate = null, DateTime? toDate = null, double? fromAmount = null, double? toAmount = null) : IRequest<RequestResult<IEnumerable<AvailableRoomDTO>>>;
 
-public class GetAvailableRoomsQueryHandler : IRequestHandler<GetAvailableRoomsQuery, IEnumerable<AvailableRoomDTO>>
+public class GetAvailableRoomsQueryHandler : IRequestHandler<GetAvailableRoomsQuery, RequestResult<IEnumerable<AvailableRoomDTO>>>
 {
     IRepository<ReservationRoom> _repository;
     IMediator _mediator;
@@ -21,10 +22,11 @@ public class GetAvailableRoomsQueryHandler : IRequestHandler<GetAvailableRoomsQu
         _mediator = mediator;
     }
 
-    public async Task<IEnumerable<AvailableRoomDTO>> Handle(GetAvailableRoomsQuery request, CancellationToken cancellationToken)
+    public async Task<RequestResult<IEnumerable<AvailableRoomDTO>>> Handle(GetAvailableRoomsQuery request, CancellationToken cancellationToken)
     {
         var rooms = await _mediator.Send(new GetRoomByTypeOrPriceQuery(request.roomTypeID, request.fromAmount, request.toAmount));
-        return rooms.Map<IEnumerable<AvailableRoomDTO>>();
+        
         // Get All Rooms that have NO reservation in the date range
+        return rooms.Map<RequestResult<IEnumerable<AvailableRoomDTO>>>();
     }
 }
