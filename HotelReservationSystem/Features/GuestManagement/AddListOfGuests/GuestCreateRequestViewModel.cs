@@ -1,6 +1,6 @@
 namespace HotelReservationSystem.Features.GuestManagement.AddListOfGuests;
 
-public class GuestCreateRerquestViewModel
+public class GuestCreateRequestViewModel
 {
     public string Name { get; set; } = string.Empty;
     public string NID { get; set; } = string.Empty;

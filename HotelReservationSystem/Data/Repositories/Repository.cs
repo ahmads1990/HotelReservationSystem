@@ -102,11 +102,18 @@ namespace HotelReservationSystem.Data.Repositories
             _context.SaveChanges();
         }
 
-        
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<bool> AnyAsync(Expression<Func<Entity, bool>> predicate)
         {
             return await Get(predicate).AnyAsync();
+        }
+        public async Task AddRangeAsync(IEnumerable<Entity> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
         }
     }
 }

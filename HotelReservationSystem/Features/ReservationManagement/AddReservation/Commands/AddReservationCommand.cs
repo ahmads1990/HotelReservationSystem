@@ -1,16 +1,15 @@
 using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.ReservationManagement;
 using MediatR;
 
-namespace HotelReservationSystem.Features.ReservationManagement.Commands;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation.Commands;
 
 public record AddReservationCommand(
-    string RoomNumber,
-    DateTime CheckInDate,
-    DateTime CheckOutDate,
-    double Amount
+    int guestID,
+    string specialRequirements,
+    double Amount 
 ) : IRequest<RequestResult<int>>;
 
 public class CreateReservationCommandHandler : IRequestHandler<AddReservationCommand, RequestResult<int>>

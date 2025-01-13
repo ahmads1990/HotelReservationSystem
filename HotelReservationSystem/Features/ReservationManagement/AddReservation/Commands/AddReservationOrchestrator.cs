@@ -1,9 +1,12 @@
 using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.DTOs;
 using HotelReservationSystem.DTOs.Guests;
 using HotelReservationSystem.Features.GuestManagement;
+using HotelReservationSystem.Features.GuestManagement.AddListOfGuests;
+using HotelReservationSystem.Features.GuestManagement.AddListOfGuests.Commands;
 using HotelReservationSystem.Features.GuestManagement.Commands;
 using HotelReservationSystem.Features.ReservationManagement.Commands;
 using HotelReservationSystem.Models.ReservationManagement;
@@ -17,7 +20,7 @@ public record AddReservationOrchestrator(
     DateTime CheckInDate,
     DateTime CheckOutDate,
     double Amount,
-    List<GuestCreateDTO> Guests
+    List<GuestCreateRequestViewModel> Guests
 ) : IRequest<RequestResult<int>>;
 
 public class AddReservationOrchestratorHandler : IRequestHandler<AddReservationOrchestrator,RequestResult<int>>

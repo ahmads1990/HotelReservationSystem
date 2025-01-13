@@ -9,5 +9,5 @@ public class ReservationRoomCreateRequestViewModel
     public DateTime CheckOutDate { get; set; }
     public double Amount { get; set; }
     
-    public List<GuestCreateRerquestViewModel> Guests { get; set; }
+    public List<GuestCreateRequestViewModel> Guests { get; set; }
 }

@@ -7,7 +7,7 @@ public class Reservation : BaseModel
 {
     public ReservationStatus ReservationStatus { get; set; }
     public int NumberOfGuests { get; set; }
-    public string SpecialRequests { get; set; }
+    public string SpecialRequirements { get; set; }
     public double TotalAmount { get; set; }
     public int GuestID { get; set; }
     public Guest Guest { get; set; }

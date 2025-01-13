@@ -13,7 +13,7 @@ public class AddReservationVMProfile : Profile
 {
     public AddReservationVMProfile()
     {
-        CreateMap<GuestCreateRerquestViewModel, GuestCreateDTO>();
+        CreateMap<GuestCreateRequestViewModel, GuestCreateDTO>();
         CreateMap<ReservationRoomCreateRequestViewModel, AddReservationCommand>();
         CreateMap<AddReservationCommand, Reservation>();
         CreateMap<ReservationRoomCreateRequestViewModel, AddReservationOrchestrator>();
