@@ -29,7 +29,7 @@ public class AddReservationOrchestratorHandler : IRequestHandler<AddReservationO
     public async Task<RequestResult<int>> Handle(AddReservationOrchestrator request, CancellationToken cancellationToken)
     {
         var addGuestCommand = request.reservationRooms.SelectMany(g => g.Guests)
-            .Where(g => g.NID == request.mainGuestNID)
+            .Where(g => g.NID == request.mainGuestNID && g.IsMainGuest)
             .Select(g => new AddGuestCommand(name: g.Name, NID: g.NID, phoneNumber: g.PhoneNumber, age: g.Age)).FirstOrDefault();
         var mainGuestID = await _mediator.Send(addGuestCommand);
         
