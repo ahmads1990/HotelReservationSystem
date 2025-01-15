@@ -1,15 +1,15 @@
-﻿using HotelReservationSystem.Data.Repositories;
+﻿using HotelReservationSystem.Common.Enums;
+using HotelReservationSystem.Common.views;
+using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Features.RoomManagement.Facilities.Queries;
-using HotelReservationSystem.Models.Enums;
 using HotelReservationSystem.Models.RoomManagement;
-using HotelReservationSystem.ViewModels.Responses;
 using MediatR;
 
 namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
 {
-    public record AddRoomCommand(string RoomNumber, string Description, bool IsAvailable, int RoomTypeID, int CreatedBy, List<int> customFacilities) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomCommand(string RoomNumber, string Description, bool IsAvailable, int RoomTypeID, int CreatedBy, List<int> customFacilities) : IRequest<RequestResult<bool>>;
 
-    public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, ResponseViewModel<bool>>
+    public class AddRoomCommandHandler : IRequestHandler<AddRoomCommand, RequestResult<bool>>
     {
         readonly IRepository<Room> _repository;
         readonly IMediator _mediator;
@@ -20,11 +20,11 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
             _mediator = mediator;
         }
 
-        public async Task<ResponseViewModel<bool>> Handle(AddRoomCommand request, CancellationToken cancellationToken)
+        public async Task<RequestResult<bool>> Handle(AddRoomCommand request, CancellationToken cancellationToken)
         {
             var response = await ValidateRequest(request);
 
-            if (!response.IsSuccess)
+            if (!response.isSuccess)
                 return response;
 
             _repository.Add(new Room
@@ -32,7 +32,7 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
                 RoomNumber = request.RoomNumber,
                 Description = request.Description,
                 IsAvailable = request.IsAvailable,
-                RoomTypeID = request.RoomTypeID,
+                RTypeID = request.RoomTypeID,
                 CreatedBy = request.CreatedBy,
                 RoomFacilities = request.customFacilities
                     .Select(facilityId => new RoomFacility { FacilityID = facilityId })
@@ -42,21 +42,21 @@ namespace HotelReservationSystem.Features.RoomManagement.Rooms.Commands
             return response;
         }
 
-        private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomCommand request)
+        private async Task<RequestResult<bool>> ValidateRequest(AddRoomCommand request)
         {
             if (string.IsNullOrEmpty(request.RoomNumber))
             {
-                return new FailureResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
+                return RequestResult<bool>.Failed<bool>(ErrorCode.FieldIsEmpty);
             }
 
             var roomtypeExists = await _mediator.Send(new IsRoomExistsQuery(request.RoomNumber));
 
             if (roomtypeExists)
             {
-                return new FailureResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
+                return RequestResult<bool>.Failed<bool>(ErrorCode.ItemAlreadyExists);
             }
 
-            return new SuccessResponseViewModel<bool>(true);
+            return RequestResult<bool>.Success(true);
         }
     }
 }

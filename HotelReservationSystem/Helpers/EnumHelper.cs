@@ -1,4 +1,4 @@
-using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 
 namespace HotelReservationSystem.Helpers;
 

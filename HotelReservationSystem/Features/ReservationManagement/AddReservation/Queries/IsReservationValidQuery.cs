@@ -1,4 +1,5 @@
 using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Data;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Models.ReservationManagement;

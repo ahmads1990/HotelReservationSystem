@@ -3,8 +3,6 @@ using HotelReservationSystem.Data.Enums;
 using HotelReservationSystem.Features.UserManagement.Users.Commands;
 using HotelReservationSystem.Features.UserManagement.Users.Queries;
 using HotelReservationSystem.Helpers;
-using HotelReservationSystem.Models.Enums;
-using HotelReservationSystem.ViewModels.Responses;
 using HotelReservationSystem.ViewModels.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -49,24 +47,24 @@ public class UserController : ControllerBase
         return istructor;
     }
 
-    [HttpPost]
-    public async Task<ResponseViewModel<UserLoginResult>> Login(LoginViewModel viewModel)
-    {
-        var user = viewModel.Map<UserLogInQuery>();
-        var userData = await _mediator.Send(user);
-        UserLoginResult result = new UserLoginResult { Token = null, TwofactorAuthEnabled = userData.Item2 };
-        if (userData.Item1 != 0 && !userData.Item2)
-        {
-            var token = _tokenHelper.GenerateToken(userData.Item1);
-            result.Token = token;
-            return new SuccessResponseViewModel<UserLoginResult>(result);
-        }
-        if (userData.Item1 != 0 && userData.Item2)
-        {
-            return new SuccessResponseViewModel<UserLoginResult>(result);
-        }
-        return new FailureResponseViewModel<UserLoginResult>(ErrorCode.UserNotFound, ErrorCode.UserNotFound.ToString());
-    }
+    // [HttpPost]
+    // public async Task<ResponseViewModel<UserLoginResult>> Login(LoginViewModel viewModel)
+    // {
+    //     var user = viewModel.Map<UserLogInQuery>();
+    //     var userData = await _mediator.Send(user);
+    //     UserLoginResult result = new UserLoginResult { Token = null, TwofactorAuthEnabled = userData.Item2 };
+    //     if (userData.Item1 != 0 && !userData.Item2)
+    //     {
+    //         var token = _tokenHelper.GenerateToken(userData.Item1);
+    //         result.Token = token;
+    //         return new SuccessResponseViewModel<UserLoginResult>(result);
+    //     }
+    //     if (userData.Item1 != 0 && userData.Item2)
+    //     {
+    //         return new SuccessResponseViewModel<UserLoginResult>(result);
+    //     }
+    //     return new SuccessResponseViewModel<UserLoginResult>(result);
+    // }
 
     [HttpGet]
     public string GetLink()

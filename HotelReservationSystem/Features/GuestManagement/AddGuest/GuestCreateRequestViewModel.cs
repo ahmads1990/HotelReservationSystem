@@ -1,4 +1,4 @@
-namespace HotelReservationSystem.Features.GuestManagement.AddListOfGuests;
+namespace HotelReservationSystem.Features.GuestManagement.AddGuest;
 
 public class GuestCreateRequestViewModel
 {

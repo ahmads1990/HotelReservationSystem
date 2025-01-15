@@ -1,3 +1,4 @@
+using HotelReservationSystem.Features.Common.ReservationRoomManagement.AddReservationRoom;
 using HotelReservationSystem.Models.GuestManagement;
 using HotelReservationSystem.Models.ReservationManagement;
 
@@ -9,6 +10,5 @@ public class ReservationViewModel
     public int NumberOfGuests { get; set; }
     public double SpecialRequests { get; set; }
     public decimal TotalAmount { get; set; }
-    public List<Guest> Guests { get; set; }
-    public List<string> RoomNumbers { get; set; }
+    public List<ReservationRoomViewModel> ReservationRooms { get; set; }
 }

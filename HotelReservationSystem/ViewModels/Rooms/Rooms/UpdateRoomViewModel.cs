@@ -6,6 +6,6 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Rooms
     {
         public int ID { get; set; }
         public string RoomTypeName { get; set; }
-        public List<FacilityViewModel> Facilities { get; set; }
+       
     }
 }

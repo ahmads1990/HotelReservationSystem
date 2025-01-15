@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 using HotelReservationSystem.Models.RoomManagement;
 
 namespace HotelReservationSystem.ViewModels.RoomManagment.Facilities
@@ -7,7 +8,7 @@ namespace HotelReservationSystem.ViewModels.RoomManagment.Facilities
     {
         public FacilityProfile()
         {
-            CreateMap<Facility, FacilityViewModel>().ReverseMap();
+            CreateMap<Facility, FacilityDTO>().ReverseMap();
 
         }
     }

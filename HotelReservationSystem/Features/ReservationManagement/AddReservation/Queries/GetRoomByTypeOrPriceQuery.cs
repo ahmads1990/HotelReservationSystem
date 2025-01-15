@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Data.Repositories;
 using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
 using HotelReservationSystem.Models.RoomManagement;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PredicateExtensions;
 
 
-namespace HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries;
 
 public record GetRoomByTypeOrPriceQuery (int? roomTypeID = null, double? fromAmount = null, double? toAmount = null) : IRequest<RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>>;
 
@@ -28,9 +29,9 @@ public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrP
             .Select(x => new AvailableRoomTypesInPriceRangeDTO
             { 
                 ID = x.ID,
-                RoomTypeID = x.RoomTypeID,
-                RoomTypeName = x.RoomType.Name,
-                BasicPrice = x.RoomType.Price,
+                RoomTypeID = x.RTypeID,
+                RoomTypeName = x.RType.Name,
+                BasicPrice = x.RType.Price,
             }).ToListAsync();
 
         return  RequestResult<IEnumerable<AvailableRoomTypesInPriceRangeDTO>>.Success((IEnumerable<AvailableRoomTypesInPriceRangeDTO>)rooms);
@@ -40,11 +41,11 @@ public class GetRoomByTypeOrPriceQueryHandler : IRequestHandler<GetRoomByTypeOrP
     {
         var predicate = PredicateExtensions.PredicateExtensions.Begin<Room>(false); 
 
-        predicate.And(x => !request.roomTypeID.HasValue || x.RoomTypeID == request.roomTypeID.Value);
+        predicate.And(x => !request.roomTypeID.HasValue || x.RTypeID == request.roomTypeID.Value);
 
-        predicate.And(x => !request.fromAmount.HasValue || x.RoomType.Price >= request.fromAmount.Value);
+        predicate.And(x => !request.fromAmount.HasValue || x.RType.Price >= request.fromAmount.Value);
 
-        predicate.And(x => !request.toAmount.HasValue || x.RoomType.Price <= request.toAmount.Value);
+        predicate.And(x => !request.toAmount.HasValue || x.RType.Price <= request.toAmount.Value);
 
         return predicate;
     }

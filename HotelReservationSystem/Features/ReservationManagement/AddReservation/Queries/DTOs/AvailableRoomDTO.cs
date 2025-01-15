@@ -9,5 +9,5 @@ public class AvailableRoomDTO
     public string RoomNumber { get; set; }
     public double? BasicPrice { get; set; }
     
-    public IEnumerable<FacilityViewModel> Facilities { get; set; }
+    public IEnumerable<FacilityDTO> Facilities { get; set; }
 }

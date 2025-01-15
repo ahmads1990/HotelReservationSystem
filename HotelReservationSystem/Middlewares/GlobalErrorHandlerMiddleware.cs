@@ -1,5 +1,6 @@
-using HotelReservationSystem.Models.Enums;
-using HotelReservationSystem.ViewModels.Responses;
+using HotelReservationSystem.Common.Enums;
+using HotelReservationSystem.Common.views;
+
 
 namespace HotelReservationSystem.Middlewares;
 
@@ -26,7 +27,7 @@ public class GlobalErrorHandlerMiddleware
 
             _logger.LogError(ex.Message);
 
-            var response = new FailureResponseViewModel<bool>(ErrorCode.UnKnownError);
+            var response = EndpointRespons<bool>.Failed<bool>(ErrorCode.UnKnownError);
 
             // context.Response.StatusCode = 
             context.Response.WriteAsJsonAsync(response);

@@ -14,4 +14,4 @@ public class ReservationRoom : BaseModel
     public double Amount { get; set; }
     
     public ICollection<ReservationRoomGuest> ReservationRoomGuests { get; set; } = new List<ReservationRoomGuest>();
-}
+} 

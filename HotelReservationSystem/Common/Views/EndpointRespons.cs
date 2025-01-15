@@ -1,7 +1,9 @@
-using HotelReservationSystem.Helpers;
-using HotelReservationSystem.Models.Enums;
 
-namespace HotelReservationSystem.Common;
+
+using HotelReservationSystem.Common.Enums;
+using HotelReservationSystem.Helpers;
+
+namespace HotelReservationSystem.Common.views;
 
 public record EndpointRespons<T>(T data, bool isSuccess, string message, ErrorCode errorCode)
 {

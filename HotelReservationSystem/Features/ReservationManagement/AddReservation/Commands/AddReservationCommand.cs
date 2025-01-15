@@ -25,12 +25,17 @@ public class CreateReservationCommandHandler : IRequestHandler<AddReservationCom
 
     public async Task<RequestResult<int>> Handle(AddReservationCommand request, CancellationToken cancellationToken)
     {
-        var reservation = request.Map<Reservation>();
+        var reservation = new Reservation
+        {
+            GuestID = request.guestID,
+            SpecialRequirements = request.specialRequirements,
+            TotalAmount = request.Amount
+        };
 
-        var reservationID = await _repository.AddAsync(reservation);
-        _repository.SaveChanges();
+        await _repository.AddAsync(reservation);
+        await _repository.SaveChangesAsync();
 
-        return RequestResult<int>.Success(reservationID);
+        return RequestResult<int>.Success(reservation.ID);
 
     }
 }

@@ -1,5 +1,7 @@
+
+
+using HotelReservationSystem.Common.Enums;
 using HotelReservationSystem.Helpers;
-using HotelReservationSystem.Models.Enums;
 
 namespace HotelReservationSystem.Common.views;
 

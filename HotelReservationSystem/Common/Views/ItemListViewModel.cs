@@ -1,4 +1,4 @@
-namespace HotelReservationSystem.Common;
+namespace HotelReservationSystem.Common.views;
 
 public class ItemListViewModel
 {

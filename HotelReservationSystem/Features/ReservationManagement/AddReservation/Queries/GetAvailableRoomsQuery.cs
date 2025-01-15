@@ -1,12 +1,12 @@
 using HotelReservationSystem.AutoMapper;
-using HotelReservationSystem.Common;
+using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Data.Repositories;
+using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries;
 using HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries.DTOs;
-using HotelReservationSystem.Features.RoomManagement.Rooms.Queries;
 using HotelReservationSystem.Models.ReservationManagement;
 using MediatR;
 
-namespace HotelReservationSystem.Features.ReservationManagement.Queries;
+namespace HotelReservationSystem.Features.ReservationManagement.AddReservation.Queries;
 
 public record GetAvailableRoomsQuery(int? roomTypeID = null, DateTime? fromDate = null, DateTime? toDate = null, double? fromAmount = null, double? toAmount = null) : IRequest<RequestResult<IEnumerable<AvailableRoomDTO>>>;
 

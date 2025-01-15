@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HotelReservationSystem.Middlewares;
 
 namespace HotelReservationSystem
 {
@@ -77,6 +78,10 @@ namespace HotelReservationSystem
 
             app.MapControllers();
 
+            app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+            
+            app.UseMiddleware<TransactionMiddleware>();
+            
             app.Run();
         }
     }

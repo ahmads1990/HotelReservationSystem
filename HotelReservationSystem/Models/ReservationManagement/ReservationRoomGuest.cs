@@ -13,5 +13,5 @@ public class ReservationRoomGuest : BaseModel
     public DateTime CheckInDate { get; set; }
     public DateTime? CheckOutDate { get; set; }
     
-    public string SpecialRequirements { get; set; }     
+    public string? SpecialRequirements { get; set; }     
 }
