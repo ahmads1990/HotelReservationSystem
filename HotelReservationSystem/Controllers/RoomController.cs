@@ -25,7 +25,7 @@ namespace HotelReservationSystem.Controllers
 
         // [HttpPost]
         // [Authorize]
-        // [TypeFilter(typeof(CustomizeAuthorizeAttribute), Arguments = new object[] { Feature.AddRoom })]
+         
         // public async Task<ResponseViewModel<bool>> Add(AddRoomRequestViewModel requestViewModel)
         // {
         //     int id = int.TryParse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var parsedId) ? parsedId : -1;

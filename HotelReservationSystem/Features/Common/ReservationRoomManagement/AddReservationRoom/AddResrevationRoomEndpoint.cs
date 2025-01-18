@@ -19,7 +19,7 @@ public class AddResrevationRoomEndpoint : ControllerBase
     [HttpPost]
     public async Task<EndpointRespons<int>> AddReservationRoom()
     {
-        var rr = new AddReservationRoomCommand(1,8, DateTime.Now, DateTime.Now.AddDays(1));
+        var rr = new AddReservationRoomCommand(2,8, DateTime.Now, DateTime.Now.AddDays(1));
         var response = await _mediator.Send(rr);
         return EndpointRespons<int>.Success(response.data);
     }

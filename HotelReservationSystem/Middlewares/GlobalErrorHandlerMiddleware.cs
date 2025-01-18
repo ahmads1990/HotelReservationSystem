@@ -23,13 +23,7 @@ public class GlobalErrorHandlerMiddleware
         }
         catch (Exception ex)
         {
-            File.WriteAllText("D:\\Logs.txt", $"Error occures: {ex.Message}");
-
-            _logger.LogError(ex.Message);
-
             var response = EndpointRespons<bool>.Failed<bool>(ErrorCode.UnKnownError);
-
-            // context.Response.StatusCode = 
             context.Response.WriteAsJsonAsync(response);
         }
 

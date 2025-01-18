@@ -25,7 +25,7 @@ public class AddGuestCommandHandler : IRequestHandler<AddGuestCommand, RequestRe
     {
 
         var existingGuestNIDs = await _mediator.Send(new IsGuestExistQuery(request.NID));
-        if (existingGuestNIDs.data != null)
+        if (existingGuestNIDs.isSuccess)
         {
             return RequestResult<bool>.Success(existingGuestNIDs.data);
         }

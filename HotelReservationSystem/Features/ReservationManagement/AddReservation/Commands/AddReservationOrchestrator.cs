@@ -1,11 +1,7 @@
-using HotelReservationSystem.AutoMapper;
 using HotelReservationSystem.Common.views;
 using HotelReservationSystem.Features.Common.ReservationRoomManagement.AddReservationRoom;
 using HotelReservationSystem.Features.Common.ReservationRoomManagement.AddReservationRoom.Commands;
 using HotelReservationSystem.Features.GuestManagement.AddGuest.Commands;
-using HotelReservationSystem.Features.GuestManagement.AddGuest;
-using HotelReservationSystem.Features.GuestManagement.AddGuest.Commands;
-using HotelReservationSystem.Models.GuestManagement;
 using HotelReservationSystem.RabbitMQ;
 using MediatR;
 
@@ -29,7 +25,8 @@ public class AddReservationOrchestratorHandler : IRequestHandler<AddReservationO
     public async Task<RequestResult<int>> Handle(AddReservationOrchestrator request, CancellationToken cancellationToken)
     {
         var addGuestCommand = request.reservationRooms.SelectMany(g => g.Guests)
-            .Where(g => g.NID == request.mainGuestNID && g.IsMainGuest)
+            .Where(g => g.NID == request.mainGuestNID)
+            .Where(g => g.IsMainGuest == true)
             .Select(g => new AddGuestCommand(name: g.Name, NID: g.NID, phoneNumber: g.PhoneNumber, age: g.Age)).FirstOrDefault();
         var mainGuestID = await _mediator.Send(addGuestCommand);
         

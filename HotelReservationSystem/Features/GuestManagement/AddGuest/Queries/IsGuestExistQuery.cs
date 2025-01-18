@@ -24,8 +24,11 @@ public class IsGuestExistQueryHandler : IRequestHandler<IsGuestExistQuery, Reque
         
         var existingGuestID = await _repository
             .Get(g => g.NID == request.NIDs).Select(g => g.ID).FirstOrDefaultAsync();
-        
-        
+
+        if (existingGuestID == 0 )
+        {
+            return RequestResult<int>.Failed<int>(ErrorCode.None);
+        }
 
         return RequestResult<List<int>>.Success(existingGuestID);
     }
